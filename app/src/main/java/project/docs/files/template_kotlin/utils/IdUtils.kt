@@ -1,4 +1,4 @@
-package project.docs.files.template_kotlin
+package project.docs.files.template_kotlin.utils
 
 import java.util.Random
 

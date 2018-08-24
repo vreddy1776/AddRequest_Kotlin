@@ -1,6 +1,5 @@
-package project.docs.files.template_kotlin
+package project.docs.files.template_kotlin.ui.Main
 
-import project.docs.files.template_kotlin.ListActivity
 import android.content.Intent
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +7,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.view.WindowManager
+import project.docs.files.template_kotlin.R
+import project.docs.files.template_kotlin.ui.List.ListActivity
 
 class MainActivity : AppCompatActivity() {
 

@@ -3,7 +3,7 @@ package project.docs.files.template_kotlin.data
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
-import project.docs.files.template_kotlin.IdUtils
+import project.docs.files.template_kotlin.utils.IdUtils
 
 
 @Entity(tableName = "Items")
