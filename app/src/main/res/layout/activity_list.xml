@@ -4,4 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- RecyclerView that is responsible for holding a listItemEntry data -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewItems"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp" />
+
 </FrameLayout>

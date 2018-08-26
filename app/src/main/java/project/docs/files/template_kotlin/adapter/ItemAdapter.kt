@@ -10,14 +10,17 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import project.docs.files.template_kotlin.R
+import project.docs.files.template_kotlin.application.MyApplication
 import project.docs.files.template_kotlin.data.Item
 
 
 class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
+
     private var mItemClickListener: ItemClickListener? = null
     private var mItemList: List<Item>? = null
     private var mContext: Context? = null
+
 
     /**
      * Constructor for the ItemAdapter that initializes the Context.
@@ -57,7 +60,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
         holder.itemDescriptionView.setText(item.itemDescription)
         holder.itemDateView.setText(item.itemDate)
 
-        Glide.with(this!!.mContext!!)
+        Glide.with(MyApplication.appContext!!)
                 .load(item.itemUrl)
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.itemUrlView)
