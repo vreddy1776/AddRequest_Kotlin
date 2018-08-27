@@ -20,7 +20,6 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
 
-
         @Volatile private var INSTANCE: AppDatabase? = null
 
         fun getInstance(): AppDatabase =
@@ -33,43 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
                         AppDatabase::class.java, "item_database")
                         .build()
 
-
-        /*
-        private var INSTANCE: AppDatabase? = null
-
-        fun getInstance(): AppDatabase? {
-            if (INSTANCE == null) {
-                synchronized(AppDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(MyApplication.appContext!!,
-                            AppDatabase::class.java, "weather.db")
-                            .build()
-                }
-            }
-            return INSTANCE
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
-        */
-
-
     }
-
-
-    /*
-    fun getDataBase(): AppDatabase {
-
-        synchronized(LOCK) {
-            if (sInstance == null) {
-                sInstance = Room.databaseBuilder(MyApplication.appContext!!, AppDatabase::class.java, DATABASE_NAME).build()
-            }
-        }
-
-        return sInstance as AppDatabase
-
-    }
-    */
 
 
     abstract fun itemDao(): ItemDao

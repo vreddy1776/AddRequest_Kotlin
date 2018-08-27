@@ -25,29 +25,13 @@ object SyncDatabase {
                     jsonObject.get("itemDate").toString(),
                     jsonObject.get("itemUrl").toString())
 
-            Log.d("Test", "Inserted Item:  ${item.toString()}")
-
-
-
             Thread({
                 mDb?.itemDao()?.insertItem(item)
             }).start()
 
-            /*
-            Thread({
-                AppDatabase.getInstance()?.itemDao()?.insertItem(item)
-            }).start()
-            */
-
-            //AppDatabase.getInstance()?.itemDao()?.insertItem(item)
-
-
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-
-        var res = mDb?.query("select * from Items", null)
-        Log.d("Cursor", "Cursor; After Insert:  " + res!!.count)
 
     }
 
