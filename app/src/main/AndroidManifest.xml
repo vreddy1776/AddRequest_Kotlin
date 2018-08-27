@@ -25,6 +25,11 @@
             android:name=".ui.List.ListActivity"
             android:label="@string/list_activity_name" />
 
+        <activity
+            android:name=".ui.ItemDetail.ItemDetailActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:label="@string/item_detail_activity_name" />
+
     </application>
 
 </manifest>

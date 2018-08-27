@@ -1,13 +1,15 @@
 package project.docs.files.template_kotlin.ui.List
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import project.docs.files.template_kotlin.R
 import project.docs.files.template_kotlin.adapter.ItemAdapter
-import project.docs.files.template_kotlin.data.AppDatabase
+import project.docs.files.template_kotlin.ui.ItemDetail.ItemDetailActivity
 
 
 class ListActivity : AppCompatActivity(), ItemAdapter.ItemClickListener {
@@ -42,7 +44,8 @@ class ListActivity : AppCompatActivity(), ItemAdapter.ItemClickListener {
 
 
     override fun onItemClickListener(itemId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val intent = Intent(this, ItemDetailActivity::class.java)
+        startActivity(intent)
     }
 
 

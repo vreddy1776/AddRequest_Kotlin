@@ -11,7 +11,6 @@ import project.docs.files.template_kotlin.data.Item
 class ListViewModel : ViewModel() {
 
     private var mLiveDataItemList: LiveData<List<Item>>? = null
-
     private var mDb: AppDatabase? = null
 
 

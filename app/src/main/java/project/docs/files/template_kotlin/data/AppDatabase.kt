@@ -8,12 +8,6 @@ import android.util.Log
 import project.docs.files.template_kotlin.application.MyApplication
 
 
-private val LOG_TAG = AppDatabase::class.java!!.getSimpleName()
-private val LOCK = Any()
-private const val DATABASE_NAME = "item_database"
-private var sInstance : AppDatabase? = null
-
-
 @Database(entities = [(Item::class)], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 

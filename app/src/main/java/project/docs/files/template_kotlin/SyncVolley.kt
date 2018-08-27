@@ -16,8 +16,6 @@ object SyncVolley {
 
     fun apiRestCall() {
 
-        var jsonArray : JSONArray? = null
-
         val request = JsonArrayRequest(Request.Method.GET, MAIN_URL, JSONArray(),
                 Response.Listener {
                     response -> SyncDatabase.insertItems(response)

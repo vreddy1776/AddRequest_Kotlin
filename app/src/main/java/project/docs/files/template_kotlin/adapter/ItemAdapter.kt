@@ -89,7 +89,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
     /**
      * Inner class for creating ViewHolders.
      */
-    class ItemViewHolder (view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class ItemViewHolder (view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
         // Class variables for the item description and priority TextViews
         var itemNameView: TextView
@@ -108,8 +108,8 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
         }
 
         override fun onClick(v: View) {
-            //val elementId = mItemList.get(adapterPosition).getItemId()
-            //mItemClickListener.onItemClickListener(elementId)
+            val elementId = mItemList?.get(adapterPosition)?.itemId
+            mItemClickListener?.onItemClickListener(elementId!!)
         }
 
     }
