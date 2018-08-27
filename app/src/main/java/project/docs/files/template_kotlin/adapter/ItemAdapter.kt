@@ -28,7 +28,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
      * @param context  the current Context
      * @param listener the ItemClickListener
      */
-    fun ItemAdapter(context: Context, listener: ItemClickListener) {
+    fun setup(context: Context, listener: ItemClickListener) {
         mContext = context
         mItemClickListener = listener
     }
@@ -66,6 +66,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
                 .into(holder.itemUrlView)
 
     }
+
 
     override fun getItemCount(): Int {
         return if (mItemList == null) {

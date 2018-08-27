@@ -18,22 +18,44 @@ private var sInstance : AppDatabase? = null
 abstract class AppDatabase : RoomDatabase() {
 
 
-    private var INSTANCE: AppDatabase? = null
+    companion object {
 
-    fun getInstance(): AppDatabase? {
-        if (INSTANCE == null) {
-            synchronized(AppDatabase::class) {
-                INSTANCE = Room.databaseBuilder(MyApplication.appContext!!,
-                        AppDatabase::class.java, "weather.db")
+
+        @Volatile private var INSTANCE: AppDatabase? = null
+
+        fun getInstance(): AppDatabase =
+                INSTANCE ?: synchronized(this) {
+                    INSTANCE ?: buildDatabase().also { INSTANCE = it }
+                }
+
+        private fun buildDatabase() =
+                Room.databaseBuilder(MyApplication.appContext!!,
+                        AppDatabase::class.java, "item_database")
                         .build()
+
+
+        /*
+        private var INSTANCE: AppDatabase? = null
+
+        fun getInstance(): AppDatabase? {
+            if (INSTANCE == null) {
+                synchronized(AppDatabase::class) {
+                    INSTANCE = Room.databaseBuilder(MyApplication.appContext!!,
+                            AppDatabase::class.java, "weather.db")
+                            .build()
+                }
             }
+            return INSTANCE
         }
-        return INSTANCE
+
+        fun destroyInstance() {
+            INSTANCE = null
+        }
+        */
+
+
     }
 
-    fun destroyInstance() {
-        INSTANCE = null
-    }
 
     /*
     fun getDataBase(): AppDatabase {

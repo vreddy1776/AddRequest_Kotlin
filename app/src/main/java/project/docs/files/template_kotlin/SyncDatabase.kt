@@ -1,6 +1,7 @@
 package project.docs.files.template_kotlin
 
 import android.content.Context
+import android.util.Log
 import org.json.JSONArray
 import org.json.JSONException
 import project.docs.files.template_kotlin.data.AppDatabase
@@ -12,35 +13,41 @@ object SyncDatabase {
 
     fun insertItems(jsonArray: JSONArray) {
 
-        for (i in 0 until jsonArray.length()) {
+        mDb = AppDatabase.getInstance()
 
-            try {
+        for (i in 0 until jsonArray.length()) try {
 
-                val jsonObject = jsonArray.getJSONObject(i)
+            val jsonObject = jsonArray.getJSONObject(i)
 
-                val item = Item(jsonObject.get("itemId") as Int,
-                        jsonObject.get("itemName").toString(),
-                        jsonObject.get("itemDescription").toString(),
-                        jsonObject.get("itemDate").toString(),
-                        jsonObject.get("itemUrl").toString())
+            val item = Item(jsonObject.get("itemId") as Int,
+                    jsonObject.get("itemName").toString(),
+                    jsonObject.get("itemDescription").toString(),
+                    jsonObject.get("itemDate").toString(),
+                    jsonObject.get("itemUrl").toString())
 
-                mDb?.getInstance()?.itemDao()?.insertItem(item)
-
-
-                /*
-                Thread({
-                    AppDatabase.getInstance()?.itemDao()?.insertItem(item)
-                }).start()
-                */
-
-                //AppDatabase.getInstance()?.itemDao()?.insertItem(item)
+            Log.d("Test", "Inserted Item:  ${item.toString()}")
 
 
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
 
+            Thread({
+                mDb?.itemDao()?.insertItem(item)
+            }).start()
+
+            /*
+            Thread({
+                AppDatabase.getInstance()?.itemDao()?.insertItem(item)
+            }).start()
+            */
+
+            //AppDatabase.getInstance()?.itemDao()?.insertItem(item)
+
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
         }
+
+        var res = mDb?.query("select * from Items", null)
+        Log.d("Cursor", "Cursor; After Insert:  " + res!!.count)
 
     }
 

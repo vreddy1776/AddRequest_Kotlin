@@ -23,6 +23,7 @@ class ListActivity : AppCompatActivity(), ItemAdapter.ItemClickListener {
         setContentView(R.layout.activity_list)
 
         mItemAdapter = ItemAdapter()
+        mItemAdapter!!.setup(this,this)
 
         mRecyclerView = findViewById(R.id.recyclerViewItems)
         mRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -30,7 +31,7 @@ class ListActivity : AppCompatActivity(), ItemAdapter.ItemClickListener {
 
         mViewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         mViewModel!!.setup()
-        //mViewModel.updateAdapter(mItemAdapter)
+        mViewModel!!.updateAdapter(mItemAdapter!!)
 
     }
 
