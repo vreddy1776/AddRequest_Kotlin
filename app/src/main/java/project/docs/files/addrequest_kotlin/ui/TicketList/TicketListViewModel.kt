@@ -29,7 +29,7 @@ class TicketListViewModel : ViewModel() {
     }
 
     fun updateAdapter(ticketAdapter: TicketAdapter) {
-        mLiveDataItemList!!.observeForever({ itemList -> ticketAdapter.setItems(itemList!!) })
+        mLiveDataItemList!!.observeForever({ ticketList -> ticketAdapter.setTicketList(ticketList!!) })
     }
 
 

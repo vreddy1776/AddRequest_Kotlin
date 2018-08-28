@@ -1,6 +1,5 @@
 package project.docs.files.addrequest_kotlin.adapter
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -19,17 +18,14 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
 
     private var mTicketClickListener: TicketClickListener? = null
     private var mTicketList: List<Ticket>? = null
-    private var mContext: Context? = null
 
 
     /**
      * Constructor for the TicketAdapter that initializes the Context.
      *
-     * @param context  the current Context
      * @param listener the TicketClickListener
      */
-    fun setup(context: Context, listener: TicketClickListener) {
-        mContext = context
+    fun setup(listener: TicketClickListener) {
         mTicketClickListener = listener
     }
 
@@ -46,7 +42,7 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
      * When data changes, this method updates the list of items
      * and notifies the adapter to use the new values on it
      */
-    fun setItems(ticketList: List<Ticket>) {
+    fun setTicketList(ticketList: List<Ticket>) {
         mTicketList = ticketList
         notifyDataSetChanged()
     }
@@ -56,14 +52,14 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
 
         val ticket = mTicketList!![position]
 
-        holder.TicketNameView.text = ticket.ticketTitle
-        holder.TicketDescriptionView.text = ticket.ticketDescription
-        holder.TicketDateView.text = ticket.ticketDate
+        holder.ticketNameView.text = ticket.ticketTitle
+        holder.ticketDescriptionView.text = ticket.ticketDescription
+        holder.ticketDateView.text = ticket.ticketDate
 
         Glide.with(MyApplication.appContext!!)
                 .load(ticket.userPhotoUrl)
                 .apply(RequestOptions.circleCropTransform())
-                .into(holder.TicketUrlView)
+                .into(holder.ticketUrlView)
 
     }
 
@@ -78,7 +74,7 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TicketViewHolder {
 
         // Inflate the item to a view
-        val view = LayoutInflater.from(mContext)
+        val view = LayoutInflater.from(MyApplication.appContext)
                 .inflate(R.layout.item_layout, parent, false)
 
         return TicketViewHolder(view)
@@ -92,20 +88,13 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
     inner class TicketViewHolder (view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
         // Class variables for the item description and priority TextViews
-        var TicketNameView: TextView
-        var TicketDescriptionView: TextView
-        var TicketDateView: TextView
-        var TicketUrlView: ImageView
 
-        init {
+        var ticketNameView: TextView = itemView.findViewById(R.id.itemName)
+        var ticketDescriptionView: TextView = itemView.findViewById(R.id.itemDescription)
+        var ticketDateView: TextView = itemView.findViewById(R.id.itemDate)
+        var ticketUrlView: ImageView = itemView.findViewById(R.id.itemUrl)
 
-            TicketNameView = itemView.findViewById(R.id.itemName)
-            TicketDescriptionView = itemView.findViewById(R.id.itemDescription)
-            TicketDateView = itemView.findViewById(R.id.itemDate)
-            TicketUrlView = itemView.findViewById(R.id.itemUrl)
-            itemView.setOnClickListener(this)
-
-        }
+        init { itemView.setOnClickListener(this) }
 
         override fun onClick(v: View) {
             val elementId = mTicketList?.get(adapterPosition)?.ticketId

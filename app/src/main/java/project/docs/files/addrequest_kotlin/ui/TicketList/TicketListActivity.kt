@@ -25,7 +25,7 @@ class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListene
         setContentView(R.layout.activity_list)
 
         mTicketAdapter = TicketAdapter()
-        mTicketAdapter!!.setup(this,this)
+        mTicketAdapter!!.setup(this)
 
         mRecyclerView = findViewById(R.id.recyclerViewItems)
         mRecyclerView.layoutManager = LinearLayoutManager(this)
