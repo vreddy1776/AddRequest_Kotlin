@@ -12,7 +12,7 @@ import project.docs.files.addrequest_kotlin.ui.TicketDetail.TicketDetailActivity
 import project.docs.files.addrequest_kotlin.utils.C
 
 
-class TicketListActivity : AppCompatActivity(), TicketAdapter.ItemClickListener {
+class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListener {
 
 
     private lateinit var mRecyclerView: RecyclerView
@@ -43,9 +43,9 @@ class TicketListActivity : AppCompatActivity(), TicketAdapter.ItemClickListener 
     }
 
 
-    override fun onItemClickListener(itemId: Int) {
+    override fun onItemClickListener(ticketId: Int) {
         val intent = Intent(this, TicketDetailActivity::class.java)
-        intent.putExtra(C.KEY_ITEM_ID, itemId)
+        intent.putExtra(C.KEY_ITEM_ID, ticketId)
         startActivity(intent)
     }
 

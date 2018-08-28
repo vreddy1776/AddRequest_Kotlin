@@ -9,15 +9,15 @@ class TicketDetailPresenter{
 
     private var mLiveDataItem: LiveData<Ticket>? = null
 
-    fun setupView(view : TicketDetailContract.View, itemId: Int) {
+    fun setupView(view : TicketDetailContract.View, ticketId: Int) {
 
-        mLiveDataItem = AppDatabase.getInstance().ticketDao().loadTicketById(itemId)
-        mLiveDataItem!!.observeForever({ item ->
+        mLiveDataItem = AppDatabase.getInstance().ticketDao().loadTicketById(ticketId)
+        mLiveDataItem!!.observeForever({ ticket ->
 
-            view.updateText(item!!.itemName!!,
-                    item.itemDescription!!)
+            view.updateText(ticket!!.getTicketTitle()!!,
+                    ticket.getTicketDescription()!!)
 
-            view.updateContent(item.itemUrl!!)
+            view.updateContent(ticket.getUserPhotoUrl()!!)
 
         })
     }

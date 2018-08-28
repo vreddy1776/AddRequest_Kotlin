@@ -14,10 +14,10 @@ import project.docs.files.addrequest_kotlin.application.MyApplication
 import project.docs.files.addrequest_kotlin.data.Ticket
 
 
-class TicketAdapter : RecyclerView.Adapter<TicketAdapter.ItemViewHolder>() {
+class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
 
 
-    private var mItemClickListener: ItemClickListener? = null
+    private var mTicketClickListener: TicketClickListener? = null
     private var mTicketList: List<Ticket>? = null
     private var mContext: Context? = null
 
@@ -26,19 +26,19 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.ItemViewHolder>() {
      * Constructor for the TicketAdapter that initializes the Context.
      *
      * @param context  the current Context
-     * @param listener the ItemClickListener
+     * @param listener the TicketClickListener
      */
-    fun setup(context: Context, listener: ItemClickListener) {
+    fun setup(context: Context, listener: TicketClickListener) {
         mContext = context
-        mItemClickListener = listener
+        mTicketClickListener = listener
     }
 
 
     /**
-     * Set up ItemClickListener.
+     * Set up TicketClickListener.
      */
-    interface ItemClickListener {
-        fun onItemClickListener(itemId: Int)
+    interface TicketClickListener {
+        fun onItemClickListener(ticketId: Int)
     }
 
 
@@ -46,22 +46,22 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.ItemViewHolder>() {
      * When data changes, this method updates the list of items
      * and notifies the adapter to use the new values on it
      */
-    fun setItems(itemList: List<Ticket>) {
-        mTicketList = itemList
+    fun setItems(ticketList: List<Ticket>) {
+        mTicketList = ticketList
         notifyDataSetChanged()
     }
 
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TicketViewHolder, position: Int) {
 
-        val item = mTicketList!![position]
+        val ticket = mTicketList!![position]
 
-        holder.TicketNameView.setText(item.itemName)
-        holder.TicketDescriptionView.setText(item.itemDescription)
-        holder.TicketDateView.setText(item.itemDate)
+        holder.TicketNameView.setText(ticket.getTicketTitle())
+        holder.TicketDescriptionView.setText(ticket.getTicketDescription())
+        holder.TicketDateView.setText(ticket.getTicketDate())
 
         Glide.with(MyApplication.appContext!!)
-                .load(item.itemUrl)
+                .load(ticket.getUserPhotoUrl())
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.TicketUrlView)
 
@@ -75,13 +75,13 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.ItemViewHolder>() {
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TicketViewHolder {
 
         // Inflate the item to a view
         val view = LayoutInflater.from(mContext)
                 .inflate(R.layout.item_layout, parent, false)
 
-        return ItemViewHolder(view)
+        return TicketViewHolder(view)
 
     }
 
@@ -89,7 +89,7 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.ItemViewHolder>() {
     /**
      * Inner class for creating ViewHolders.
      */
-    inner class ItemViewHolder (view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class TicketViewHolder (view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
         // Class variables for the item description and priority TextViews
         var TicketNameView: TextView
@@ -108,8 +108,8 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.ItemViewHolder>() {
         }
 
         override fun onClick(v: View) {
-            val elementId = mTicketList?.get(adapterPosition)?.itemId
-            mItemClickListener?.onItemClickListener(elementId!!)
+            val elementId = mTicketList?.get(adapterPosition)?.getTicketId()
+            mTicketClickListener?.onItemClickListener(elementId!!)
         }
 
     }

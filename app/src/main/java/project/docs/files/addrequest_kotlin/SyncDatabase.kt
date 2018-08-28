@@ -9,7 +9,7 @@ object SyncDatabase {
 
     private var mDb: AppDatabase? = null
 
-    fun insertItems(jsonArray: JSONArray) {
+    fun insertTickets(jsonArray: JSONArray) {
 
         mDb = AppDatabase.getInstance()
 
@@ -17,14 +17,17 @@ object SyncDatabase {
 
             val jsonObject = jsonArray.getJSONObject(i)
 
-            val item = Ticket(jsonObject.get("itemId") as Int,
-                    jsonObject.get("itemName").toString(),
-                    jsonObject.get("itemDescription").toString(),
-                    jsonObject.get("itemDate").toString(),
-                    jsonObject.get("itemUrl").toString())
+            val ticket = Ticket()
+            ticket.newTicket()
+
+            ticket.setTicketId(jsonObject.get("itemId") as Int)
+            ticket.setTicketTitle(jsonObject.get("itemName").toString())
+            ticket.setTicketDescription(jsonObject.get("itemDescription").toString())
+            ticket.setTicketDate(jsonObject.get("itemDate").toString())
+            ticket.setUserPhotoUrl(jsonObject.get("itemUrl").toString())
 
             Thread({
-                mDb?.ticketDao()?.insertTicket(item)
+                mDb?.ticketDao()?.insertTicket(ticket)
             }).start()
 
         } catch (e: JSONException) {

@@ -15,8 +15,8 @@ interface TicketDao {
     @Query("SELECT * FROM Tickets")
     fun loadAllTickets(): LiveData<List<Ticket>>
 
-    @Query("SELECT * FROM Tickets WHERE itemId = :itemId")
-    fun loadTicketById(itemId: Int): LiveData<Ticket>
+    @Query("SELECT * FROM Tickets WHERE ticketId = :ticketId")
+    fun loadTicketById(ticketId: Int): LiveData<Ticket>
 
 
     /**
@@ -24,7 +24,7 @@ interface TicketDao {
      */
 
     @Insert
-    fun insertTicket(item: Ticket)
+    fun insertTicket(ticket: Ticket)
 
 
     /**
@@ -32,7 +32,7 @@ interface TicketDao {
      */
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateTicket(item: Ticket)
+    fun updateTicket(ticket: Ticket)
 
 
     /**
