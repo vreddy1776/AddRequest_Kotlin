@@ -7,11 +7,8 @@ import project.docs.files.addrequest_kotlin.data.Ticket
 
 object SyncDatabase {
 
-    private var mDb: AppDatabase? = null
 
     fun insertTickets(jsonArray: JSONArray) {
-
-        mDb = AppDatabase.getInstance()
 
         for (i in 0 until jsonArray.length()) try {
 
@@ -26,7 +23,7 @@ object SyncDatabase {
             ticket.userPhotoUrl = jsonObject.get("itemUrl").toString()
 
             Thread({
-                mDb?.ticketDao()?.insertTicket(ticket)
+                AppDatabase.getInstance().ticketDao().insertTicket(ticket)
             }).start()
 
         } catch (e: JSONException) {

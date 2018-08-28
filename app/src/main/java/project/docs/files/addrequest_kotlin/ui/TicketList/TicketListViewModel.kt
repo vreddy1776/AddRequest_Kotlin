@@ -10,26 +10,22 @@ import project.docs.files.addrequest_kotlin.data.Ticket
 
 class TicketListViewModel : ViewModel() {
 
-    private var mLiveDataItemList: LiveData<List<Ticket>>? = null
-    private var mDb: AppDatabase? = null
-
+    private var mLiveDataTicketList: LiveData<List<Ticket>>? = null
 
     fun setup() {
 
-        mDb = AppDatabase.getInstance()
-
         Thread({
-            mDb?.ticketDao()?.deleteAllTickets()
+            AppDatabase.getInstance().ticketDao().deleteAllTickets()
         }).start()
 
         SyncVolley.apiRestCall()
 
-        mLiveDataItemList = mDb?.ticketDao()?.loadAllTickets()
+        mLiveDataTicketList = AppDatabase.getInstance().ticketDao().loadAllTickets()
 
     }
 
     fun updateAdapter(ticketAdapter: TicketAdapter) {
-        mLiveDataItemList!!.observeForever({ ticketList -> ticketAdapter.setTicketList(ticketList!!) })
+        mLiveDataTicketList!!.observeForever({ ticketList -> ticketAdapter.setTicketList(ticketList!!) })
     }
 
 
