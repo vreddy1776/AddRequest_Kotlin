@@ -3,12 +3,10 @@ package project.docs.files.addrequest_kotlin.data
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
-import android.content.Context
-import android.util.Log
 import project.docs.files.addrequest_kotlin.application.MyApplication
 
 
-@Database(entities = [(Item::class)], version = 1, exportSchema = false)
+@Database(entities = [(Ticket::class)], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
 
@@ -24,13 +22,13 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun buildDatabase() =
                 Room.databaseBuilder(MyApplication.appContext!!,
-                        AppDatabase::class.java, "item_database")
+                        AppDatabase::class.java, "ticket_database")
                         .build()
 
     }
 
 
-    abstract fun itemDao(): ItemDao
+    abstract fun ticketDao(): TicketDao
 
 
 }

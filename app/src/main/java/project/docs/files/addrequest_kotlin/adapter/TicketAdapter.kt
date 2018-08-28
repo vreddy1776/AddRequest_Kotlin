@@ -11,19 +11,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.application.MyApplication
-import project.docs.files.addrequest_kotlin.data.Item
+import project.docs.files.addrequest_kotlin.data.Ticket
 
 
-class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class TicketAdapter : RecyclerView.Adapter<TicketAdapter.ItemViewHolder>() {
 
 
     private var mItemClickListener: ItemClickListener? = null
-    private var mItemList: List<Item>? = null
+    private var mTicketList: List<Ticket>? = null
     private var mContext: Context? = null
 
 
     /**
-     * Constructor for the ItemAdapter that initializes the Context.
+     * Constructor for the TicketAdapter that initializes the Context.
      *
      * @param context  the current Context
      * @param listener the ItemClickListener
@@ -46,32 +46,32 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
      * When data changes, this method updates the list of items
      * and notifies the adapter to use the new values on it
      */
-    fun setItems(itemList: List<Item>) {
-        mItemList = itemList
+    fun setItems(itemList: List<Ticket>) {
+        mTicketList = itemList
         notifyDataSetChanged()
     }
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
-        val item = mItemList!![position]
+        val item = mTicketList!![position]
 
-        holder.itemNameView.setText(item.itemName)
-        holder.itemDescriptionView.setText(item.itemDescription)
-        holder.itemDateView.setText(item.itemDate)
+        holder.TicketNameView.setText(item.itemName)
+        holder.TicketDescriptionView.setText(item.itemDescription)
+        holder.TicketDateView.setText(item.itemDate)
 
         Glide.with(MyApplication.appContext!!)
                 .load(item.itemUrl)
                 .apply(RequestOptions.circleCropTransform())
-                .into(holder.itemUrlView)
+                .into(holder.TicketUrlView)
 
     }
 
 
     override fun getItemCount(): Int {
-        return if (mItemList == null) {
+        return if (mTicketList == null) {
             0
-        } else mItemList!!.size
+        } else mTicketList!!.size
     }
 
 
@@ -92,23 +92,23 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
     inner class ItemViewHolder (view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
         // Class variables for the item description and priority TextViews
-        var itemNameView: TextView
-        var itemDescriptionView: TextView
-        var itemDateView: TextView
-        var itemUrlView: ImageView
+        var TicketNameView: TextView
+        var TicketDescriptionView: TextView
+        var TicketDateView: TextView
+        var TicketUrlView: ImageView
 
         init {
 
-            itemNameView = itemView.findViewById(R.id.itemName)
-            itemDescriptionView = itemView.findViewById(R.id.itemDescription)
-            itemDateView = itemView.findViewById(R.id.itemDate)
-            itemUrlView = itemView.findViewById(R.id.itemUrl)
+            TicketNameView = itemView.findViewById(R.id.itemName)
+            TicketDescriptionView = itemView.findViewById(R.id.itemDescription)
+            TicketDateView = itemView.findViewById(R.id.itemDate)
+            TicketUrlView = itemView.findViewById(R.id.itemUrl)
             itemView.setOnClickListener(this)
 
         }
 
         override fun onClick(v: View) {
-            val elementId = mItemList?.get(adapterPosition)?.itemId
+            val elementId = mTicketList?.get(adapterPosition)?.itemId
             mItemClickListener?.onItemClickListener(elementId!!)
         }
 

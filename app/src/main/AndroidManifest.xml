@@ -22,11 +22,11 @@
         </activity>
 
         <activity
-            android:name="project.docs.files.addrequest_kotlin.ui.List.ListActivity"
+            android:name="project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity"
             android:label="@string/list_activity_name" />
 
         <activity
-            android:name="project.docs.files.addrequest_kotlin.ui.ItemDetail.ItemDetailActivity"
+            android:name="project.docs.files.addrequest_kotlin.ui.TicketDetail.TicketDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="@string/item_detail_activity_name" />
 

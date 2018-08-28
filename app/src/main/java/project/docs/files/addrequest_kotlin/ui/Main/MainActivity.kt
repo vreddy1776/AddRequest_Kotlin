@@ -8,7 +8,7 @@ import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.view.WindowManager
 import project.docs.files.addrequest_kotlin.R
-import project.docs.files.addrequest_kotlin.ui.List.ListActivity
+import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun goToListActivity() {
 
-        val intent = Intent(this, ListActivity::class.java)
+        val intent = Intent(this, TicketListActivity::class.java)
 
         val handler = Handler()
         handler.postDelayed({ startActivity(intent) }, 3000)   //3 second

@@ -1,9 +1,7 @@
-package project.docs.files.addrequest_kotlin.ui.ItemDetail
+package project.docs.files.addrequest_kotlin.ui.TicketDetail
 
-import android.annotation.TargetApi
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -15,14 +13,14 @@ import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.utils.C
 
 
-class ItemDetailActivity : AppCompatActivity(), ItemDetailContract.View {
+class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
 
-    private var mTextViewItemName: TextView? = null
-    private var mTextViewItemDescription: TextView? = null
-    private var mImageViewItemUrl: ImageView? = null
+    private var mTextViewTicketName: TextView? = null
+    private var mTextViewTicketDescription: TextView? = null
+    private var mImageViewTicketUrl: ImageView? = null
 
-    private var mPresenter: ItemDetailPresenter? = null
+    private var mPresenter: TicketDetailPresenter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,26 +28,26 @@ class ItemDetailActivity : AppCompatActivity(), ItemDetailContract.View {
         setContentView(R.layout.activity_item_detail)
 
         setupActionBar()
-        mTextViewItemName = findViewById(R.id.itemName)
-        mTextViewItemDescription = findViewById(R.id.itemDescription)
-        mImageViewItemUrl = findViewById(R.id.itemUrl)
+        mTextViewTicketName = findViewById(R.id.itemName)
+        mTextViewTicketDescription = findViewById(R.id.itemDescription)
+        mImageViewTicketUrl = findViewById(R.id.itemUrl)
 
-        mPresenter = ItemDetailPresenter()
+        mPresenter = TicketDetailPresenter()
         mPresenter?.setupView(this, intent.getIntExtra(C.KEY_ITEM_ID, C.DEFAULT_ITEM_ID))
 
     }
 
 
     override fun updateText(itemName: String, itemDescription: String) {
-        mTextViewItemName?.text = itemName
-        mTextViewItemDescription?.text = itemDescription
+        mTextViewTicketName?.text = itemName
+        mTextViewTicketDescription?.text = itemDescription
     }
 
 
     override fun updateContent(itemUrl: String) {
         Glide.with(this)
                 .load(itemUrl)
-                .into(this.mImageViewItemUrl!!)
+                .into(this.mImageViewTicketUrl!!)
     }
 
 

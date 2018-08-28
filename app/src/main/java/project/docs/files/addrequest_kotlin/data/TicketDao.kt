@@ -5,18 +5,18 @@ import android.arch.persistence.room.*
 
 
 @Dao
-interface ItemDao {
+interface TicketDao {
 
 
     /**
      * Load Items
      */
 
-    @Query("SELECT * FROM Items")
-    fun loadAllItems(): LiveData<List<Item>>
+    @Query("SELECT * FROM Tickets")
+    fun loadAllTickets(): LiveData<List<Ticket>>
 
-    @Query("SELECT * FROM Items WHERE itemId = :itemId")
-    fun loadItemById(itemId: Int): LiveData<Item>
+    @Query("SELECT * FROM Tickets WHERE itemId = :itemId")
+    fun loadTicketById(itemId: Int): LiveData<Ticket>
 
 
     /**
@@ -24,7 +24,7 @@ interface ItemDao {
      */
 
     @Insert
-    fun insertItem(item: Item)
+    fun insertTicket(item: Ticket)
 
 
     /**
@@ -32,15 +32,15 @@ interface ItemDao {
      */
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateItem(item: Item)
+    fun updateTicket(item: Ticket)
 
 
     /**
      * Delete Items
      */
 
-    @Query("DELETE FROM Items")
-    fun deleteAllItems()
+    @Query("DELETE FROM Tickets")
+    fun deleteAllTickets()
 
 
 }

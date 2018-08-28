@@ -1,7 +1,7 @@
-package project.docs.files.addrequest_kotlin.ui.ItemDetail
+package project.docs.files.addrequest_kotlin.ui.TicketDetail
 
 
-class ItemDetailContract{
+class TicketDetailContract{
 
     interface View{
 

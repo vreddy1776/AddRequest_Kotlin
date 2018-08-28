@@ -1,4 +1,4 @@
-package project.docs.files.addrequest_kotlin.ui.List
+package project.docs.files.addrequest_kotlin.ui.TicketList
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -6,35 +6,34 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import project.docs.files.addrequest_kotlin.R
-import project.docs.files.addrequest_kotlin.adapter.ItemAdapter
-import project.docs.files.addrequest_kotlin.ui.ItemDetail.ItemDetailActivity
+import project.docs.files.addrequest_kotlin.adapter.TicketAdapter
+import project.docs.files.addrequest_kotlin.ui.TicketDetail.TicketDetailActivity
 import project.docs.files.addrequest_kotlin.utils.C
 
 
-class ListActivity : AppCompatActivity(), ItemAdapter.ItemClickListener {
+class TicketListActivity : AppCompatActivity(), TicketAdapter.ItemClickListener {
 
 
     private lateinit var mRecyclerView: RecyclerView
-    private var mItemAdapter: ItemAdapter? = null
-    private var mViewModel: ListViewModel? = null
+    private var mTicketAdapter: TicketAdapter? = null
+    private var mViewModel: TicketListViewModel? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        mItemAdapter = ItemAdapter()
-        mItemAdapter!!.setup(this,this)
+        mTicketAdapter = TicketAdapter()
+        mTicketAdapter!!.setup(this,this)
 
         mRecyclerView = findViewById(R.id.recyclerViewItems)
         mRecyclerView.layoutManager = LinearLayoutManager(this)
-        mRecyclerView.adapter = mItemAdapter
+        mRecyclerView.adapter = mTicketAdapter
 
-        mViewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this).get(TicketListViewModel::class.java)
         mViewModel!!.setup()
-        mViewModel!!.updateAdapter(mItemAdapter!!)
+        mViewModel!!.updateAdapter(mTicketAdapter!!)
 
     }
 
@@ -45,7 +44,7 @@ class ListActivity : AppCompatActivity(), ItemAdapter.ItemClickListener {
 
 
     override fun onItemClickListener(itemId: Int) {
-        val intent = Intent(this, ItemDetailActivity::class.java)
+        val intent = Intent(this, TicketDetailActivity::class.java)
         intent.putExtra(C.KEY_ITEM_ID, itemId)
         startActivity(intent)
     }

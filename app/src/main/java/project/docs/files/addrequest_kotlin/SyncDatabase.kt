@@ -1,11 +1,9 @@
 package project.docs.files.addrequest_kotlin
 
-import android.content.Context
-import android.util.Log
 import org.json.JSONArray
 import org.json.JSONException
 import project.docs.files.addrequest_kotlin.data.AppDatabase
-import project.docs.files.addrequest_kotlin.data.Item
+import project.docs.files.addrequest_kotlin.data.Ticket
 
 object SyncDatabase {
 
@@ -19,14 +17,14 @@ object SyncDatabase {
 
             val jsonObject = jsonArray.getJSONObject(i)
 
-            val item = Item(jsonObject.get("itemId") as Int,
+            val item = Ticket(jsonObject.get("itemId") as Int,
                     jsonObject.get("itemName").toString(),
                     jsonObject.get("itemDescription").toString(),
                     jsonObject.get("itemDate").toString(),
                     jsonObject.get("itemUrl").toString())
 
             Thread({
-                mDb?.itemDao()?.insertItem(item)
+                mDb?.ticketDao()?.insertTicket(item)
             }).start()
 
         } catch (e: JSONException) {

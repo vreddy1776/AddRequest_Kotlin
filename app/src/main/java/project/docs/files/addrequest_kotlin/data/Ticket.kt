@@ -6,8 +6,8 @@ import android.arch.persistence.room.PrimaryKey
 import project.docs.files.addrequest_kotlin.utils.IdUtils
 
 
-@Entity(tableName = "Items")
-class Item {
+@Entity(tableName = "Tickets")
+class Ticket {
 
 
     @PrimaryKey(autoGenerate = true)
@@ -30,7 +30,7 @@ class Item {
 
 
     @Ignore
-    constructor(item: Item) {
+    constructor(item: Ticket) {
         this.itemId = IdUtils.newID()
         this.itemName = item.itemName
         this.itemDescription = item.itemDescription
