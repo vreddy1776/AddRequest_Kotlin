@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Template_Kotlin</string>
+    <string name="app_name">AddRequest_Kotlin</string>
 
     <!-- Activity Name -->
     <string name="list_activity_name">Items List</string>
