@@ -6,6 +6,6 @@
     <string name="item_detail_activity_name">Item Detail</string>
 
     <!-- Layout Strings -->
-    <string name="app_function">App submission for coding challenge</string>
+    <string name="app_function">Template for Android App - Kotlin</string>
 
 </resources>
