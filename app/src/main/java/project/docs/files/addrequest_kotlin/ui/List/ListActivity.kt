@@ -1,4 +1,4 @@
-package project.docs.files.template_kotlin.ui.List
+package project.docs.files.addrequest_kotlin.ui.List
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -7,10 +7,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import project.docs.files.template_kotlin.R
-import project.docs.files.template_kotlin.adapter.ItemAdapter
-import project.docs.files.template_kotlin.ui.ItemDetail.ItemDetailActivity
-import project.docs.files.template_kotlin.utils.C
+import project.docs.files.addrequest_kotlin.R
+import project.docs.files.addrequest_kotlin.adapter.ItemAdapter
+import project.docs.files.addrequest_kotlin.ui.ItemDetail.ItemDetailActivity
+import project.docs.files.addrequest_kotlin.utils.C
 
 
 class ListActivity : AppCompatActivity(), ItemAdapter.ItemClickListener {

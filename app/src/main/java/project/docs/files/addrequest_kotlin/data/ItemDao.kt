@@ -1,4 +1,4 @@
-package project.docs.files.template_kotlin.data
+package project.docs.files.addrequest_kotlin.data
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*

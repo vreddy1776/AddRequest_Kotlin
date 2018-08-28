@@ -1,11 +1,11 @@
-package project.docs.files.template_kotlin.ui.List
+package project.docs.files.addrequest_kotlin.ui.List
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import project.docs.files.template_kotlin.SyncVolley
-import project.docs.files.template_kotlin.adapter.ItemAdapter
-import project.docs.files.template_kotlin.data.AppDatabase
-import project.docs.files.template_kotlin.data.Item
+import project.docs.files.addrequest_kotlin.SyncVolley
+import project.docs.files.addrequest_kotlin.adapter.ItemAdapter
+import project.docs.files.addrequest_kotlin.data.AppDatabase
+import project.docs.files.addrequest_kotlin.data.Item
 
 
 class ListViewModel : ViewModel() {

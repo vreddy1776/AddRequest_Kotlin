@@ -1,4 +1,4 @@
-package project.docs.files.template_kotlin.ui.ItemDetail
+package project.docs.files.addrequest_kotlin.ui.ItemDetail
 
 import android.annotation.TargetApi
 import android.os.Build
@@ -11,11 +11,11 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import project.docs.files.template_kotlin.R
-import project.docs.files.template_kotlin.utils.C
+import project.docs.files.addrequest_kotlin.R
+import project.docs.files.addrequest_kotlin.utils.C
 
 
-class ItemDetailActivity : AppCompatActivity(), ItemDetailContract.View{
+class ItemDetailActivity : AppCompatActivity(), ItemDetailContract.View {
 
 
     private var mTextViewItemName: TextView? = null

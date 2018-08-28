@@ -1,4 +1,4 @@
-package project.docs.files.template_kotlin.application
+package project.docs.files.addrequest_kotlin.application
 
 import android.app.Application
 import android.content.Context

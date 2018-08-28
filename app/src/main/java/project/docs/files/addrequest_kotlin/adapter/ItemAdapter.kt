@@ -1,4 +1,4 @@
-package project.docs.files.template_kotlin.adapter
+package project.docs.files.addrequest_kotlin.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -9,9 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import project.docs.files.template_kotlin.R
-import project.docs.files.template_kotlin.application.MyApplication
-import project.docs.files.template_kotlin.data.Item
+import project.docs.files.addrequest_kotlin.R
+import project.docs.files.addrequest_kotlin.application.MyApplication
+import project.docs.files.addrequest_kotlin.data.Item
 
 
 class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {

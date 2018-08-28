@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="project.docs.files.template_kotlin">
+    package="project.docs.files.addrequest_kotlin">
 
     <!--Internet Permission-->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".application.MyApplication"
+        android:name="project.docs.files.addrequest_kotlin.application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.Main.MainActivity">
+        <activity android:name="project.docs.files.addrequest_kotlin.ui.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,11 +22,11 @@
         </activity>
 
         <activity
-            android:name=".ui.List.ListActivity"
+            android:name="project.docs.files.addrequest_kotlin.ui.List.ListActivity"
             android:label="@string/list_activity_name" />
 
         <activity
-            android:name=".ui.ItemDetail.ItemDetailActivity"
+            android:name="project.docs.files.addrequest_kotlin.ui.ItemDetail.ItemDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="@string/item_detail_activity_name" />
 

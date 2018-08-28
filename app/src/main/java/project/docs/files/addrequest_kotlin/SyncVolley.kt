@@ -1,4 +1,4 @@
-package project.docs.files.template_kotlin
+package project.docs.files.addrequest_kotlin
 
 import android.content.Context
 import android.util.Log
@@ -8,7 +8,7 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
-import project.docs.files.template_kotlin.application.MyApplication
+import project.docs.files.addrequest_kotlin.application.MyApplication
 
 object SyncVolley {
 
@@ -18,7 +18,8 @@ object SyncVolley {
 
         val request = JsonArrayRequest(Request.Method.GET, MAIN_URL, JSONArray(),
                 Response.Listener {
-                    response -> SyncDatabase.insertItems(response)
+                    response ->
+                    SyncDatabase.insertItems(response)
                 },
                 Response.ErrorListener { }
         )

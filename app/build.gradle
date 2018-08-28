@@ -9,7 +9,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "project.docs.files.template_kotlin"
+        applicationId "project.docs.files.addrequest_kotlin"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1

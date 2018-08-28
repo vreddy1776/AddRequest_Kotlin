@@ -1,4 +1,4 @@
-package project.docs.files.template_kotlin.ui.ItemDetail
+package project.docs.files.addrequest_kotlin.ui.ItemDetail
 
 
 class ItemDetailContract{

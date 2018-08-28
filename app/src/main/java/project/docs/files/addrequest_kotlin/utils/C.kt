@@ -1,4 +1,4 @@
-package project.docs.files.template_kotlin.utils
+package project.docs.files.addrequest_kotlin.utils
 
 object C {
 

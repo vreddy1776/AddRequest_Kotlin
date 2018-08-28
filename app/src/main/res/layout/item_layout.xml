@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!-- This linear layout contains a single item displayed in the MainActivity -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.List.ListActivity"
+    tools:context="project.docs.files.addrequest_kotlin.ui.List.ListActivity"
     android:id="@+id/itemFrame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

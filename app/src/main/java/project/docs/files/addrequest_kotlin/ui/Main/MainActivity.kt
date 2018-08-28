@@ -1,4 +1,4 @@
-package project.docs.files.template_kotlin.ui.Main
+package project.docs.files.addrequest_kotlin.ui.Main
 
 import android.content.Intent
 import android.os.Build
@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.view.WindowManager
-import project.docs.files.template_kotlin.R
-import project.docs.files.template_kotlin.ui.List.ListActivity
+import project.docs.files.addrequest_kotlin.R
+import project.docs.files.addrequest_kotlin.ui.List.ListActivity
 
 class MainActivity : AppCompatActivity() {
 

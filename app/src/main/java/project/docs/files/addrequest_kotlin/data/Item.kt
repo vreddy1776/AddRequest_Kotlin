@@ -1,9 +1,9 @@
-package project.docs.files.template_kotlin.data
+package project.docs.files.addrequest_kotlin.data
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
-import project.docs.files.template_kotlin.utils.IdUtils
+import project.docs.files.addrequest_kotlin.utils.IdUtils
 
 
 @Entity(tableName = "Items")

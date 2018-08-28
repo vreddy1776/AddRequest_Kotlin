@@ -1,10 +1,10 @@
-package project.docs.files.template_kotlin.threads
+package project.docs.files.addrequest_kotlin.threads
 
 import android.arch.persistence.room.Room
 import android.os.Handler
 import android.os.Looper
-import project.docs.files.template_kotlin.application.MyApplication
-import project.docs.files.template_kotlin.data.AppDatabase
+import project.docs.files.addrequest_kotlin.application.MyApplication
+import project.docs.files.addrequest_kotlin.data.AppDatabase
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -32,11 +32,11 @@ abstract class AppExecuters{
 
 
         private fun AppExecuters(diskIO: Executor, networkIO: Executor, mainThread: Executor): AppExecuters? {
-            this.diskIO = diskIO
-            this.networkIO = networkIO
-            this.mainThread = mainThread
+            Companion.diskIO = diskIO
+            Companion.networkIO = networkIO
+            Companion.mainThread = mainThread
 
-            return AppExecuters(diskIO,networkIO,mainThread)
+            return AppExecuters(diskIO, networkIO, mainThread)
 
         }
 

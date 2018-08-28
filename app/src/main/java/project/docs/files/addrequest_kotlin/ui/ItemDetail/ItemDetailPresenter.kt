@@ -1,8 +1,8 @@
-package project.docs.files.template_kotlin.ui.ItemDetail
+package project.docs.files.addrequest_kotlin.ui.ItemDetail
 
 import android.arch.lifecycle.LiveData
-import project.docs.files.template_kotlin.data.AppDatabase
-import project.docs.files.template_kotlin.data.Item
+import project.docs.files.addrequest_kotlin.data.AppDatabase
+import project.docs.files.addrequest_kotlin.data.Item
 
 
 class ItemDetailPresenter{
