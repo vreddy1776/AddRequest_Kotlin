@@ -10,6 +10,7 @@ import android.util.Log
 import project.docs.files.template_kotlin.R
 import project.docs.files.template_kotlin.adapter.ItemAdapter
 import project.docs.files.template_kotlin.ui.ItemDetail.ItemDetailActivity
+import project.docs.files.template_kotlin.utils.C
 
 
 class ListActivity : AppCompatActivity(), ItemAdapter.ItemClickListener {
@@ -45,6 +46,7 @@ class ListActivity : AppCompatActivity(), ItemAdapter.ItemClickListener {
 
     override fun onItemClickListener(itemId: Int) {
         val intent = Intent(this, ItemDetailActivity::class.java)
+        intent.putExtra(C.KEY_ITEM_ID, itemId)
         startActivity(intent)
     }
 
