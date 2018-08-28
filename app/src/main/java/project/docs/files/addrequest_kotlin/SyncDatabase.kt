@@ -18,13 +18,12 @@ object SyncDatabase {
             val jsonObject = jsonArray.getJSONObject(i)
 
             val ticket = Ticket()
-            ticket.newTicket()
 
-            ticket.setTicketId(jsonObject.get("itemId") as Int)
-            ticket.setTicketTitle(jsonObject.get("itemName").toString())
-            ticket.setTicketDescription(jsonObject.get("itemDescription").toString())
-            ticket.setTicketDate(jsonObject.get("itemDate").toString())
-            ticket.setUserPhotoUrl(jsonObject.get("itemUrl").toString())
+            ticket.ticketId = jsonObject.get("itemId") as Int
+            ticket.ticketTitle = jsonObject.get("itemName").toString()
+            ticket.ticketDescription = jsonObject.get("itemDescription").toString()
+            ticket.ticketDate = jsonObject.get("itemDate").toString()
+            ticket.userPhotoUrl = jsonObject.get("itemUrl").toString()
 
             Thread({
                 mDb?.ticketDao()?.insertTicket(ticket)

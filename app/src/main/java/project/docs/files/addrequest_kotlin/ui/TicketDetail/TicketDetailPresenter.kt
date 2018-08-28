@@ -14,10 +14,10 @@ class TicketDetailPresenter{
         mLiveDataItem = AppDatabase.getInstance().ticketDao().loadTicketById(ticketId)
         mLiveDataItem!!.observeForever({ ticket ->
 
-            view.updateText(ticket!!.getTicketTitle()!!,
-                    ticket.getTicketDescription()!!)
+            view.updateText(ticket!!.ticketTitle!!,
+                    ticket.ticketDescription!!)
 
-            view.updateContent(ticket.getUserPhotoUrl()!!)
+            view.updateContent(ticket.userPhotoUrl!!)
 
         })
     }

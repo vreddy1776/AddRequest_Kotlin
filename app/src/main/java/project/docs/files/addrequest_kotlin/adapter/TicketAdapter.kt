@@ -56,12 +56,12 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
 
         val ticket = mTicketList!![position]
 
-        holder.TicketNameView.setText(ticket.getTicketTitle())
-        holder.TicketDescriptionView.setText(ticket.getTicketDescription())
-        holder.TicketDateView.setText(ticket.getTicketDate())
+        holder.TicketNameView.text = ticket.ticketTitle
+        holder.TicketDescriptionView.text = ticket.ticketDescription
+        holder.TicketDateView.text = ticket.ticketDate
 
         Glide.with(MyApplication.appContext!!)
-                .load(ticket.getUserPhotoUrl())
+                .load(ticket.userPhotoUrl)
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.TicketUrlView)
 
@@ -108,7 +108,7 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
         }
 
         override fun onClick(v: View) {
-            val elementId = mTicketList?.get(adapterPosition)?.getTicketId()
+            val elementId = mTicketList?.get(adapterPosition)?.ticketId
             mTicketClickListener?.onItemClickListener(elementId!!)
         }
 

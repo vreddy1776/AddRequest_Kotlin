@@ -12,53 +12,37 @@ class Ticket {
 
 
     @PrimaryKey(autoGenerate = true)
-    private var ticketId: Int = 0
+    var ticketId: Int = C.DEFAULT_TICKET_ID
 
-    private var ticketTitle: String? = C.BLANK_TICKET_TITLE
-    private var ticketDescription: String? = C.BLANK_DESCRIPTION_TITLE
-    private var ticketDate: String? = C.DEFAULT_TICKET_DATE
-    private var ticketVideoPostId: String? = C.DEFAULT_TICKET_VIDEO_POST_ID
-    private var ticketVideoLocalUri: String? = C.DEFAULT_TICKET_VIDEO_LOCAL_URI
-    private var ticketVideoInternetUrl: String? = C.DEFAULT_TICKET_VIDEO_INTERNET_URL
-    private var userId: String? = C.DEFAULT_USER_ID
-    private var userName: String? = C.DEFAULT_USER_NAME
-    private var userPhotoUrl: String? = C.DEFAULT_USER_PHOTO_URL
+    var ticketTitle: String? = C.BLANK_TICKET_TITLE
+    var ticketDescription: String? = C.BLANK_DESCRIPTION_TITLE
+    var ticketDate: String? = C.DEFAULT_TICKET_DATE
+    var ticketVideoPostId: String? = C.DEFAULT_TICKET_VIDEO_POST_ID
+    var ticketVideoLocalUri: String? = C.DEFAULT_TICKET_VIDEO_LOCAL_URI
+    var ticketVideoInternetUrl: String? = C.DEFAULT_TICKET_VIDEO_INTERNET_URL
+    var userId: String? = C.DEFAULT_USER_ID
+    var userName: String? = C.DEFAULT_USER_NAME
+    var userPhotoUrl: String? = C.DEFAULT_USER_PHOTO_URL
 
 
     @Ignore
     fun newTicket() {
-        this.ticketId = C.DEFAULT_TICKET_ID
-        this.ticketTitle = C.BLANK_TICKET_TITLE
-        this.ticketDescription = C.BLANK_DESCRIPTION_TITLE
-        this.ticketDate = C.DEFAULT_TICKET_DATE
-        this.ticketVideoPostId = C.DEFAULT_TICKET_VIDEO_POST_ID
-        this.ticketVideoLocalUri = C.DEFAULT_TICKET_VIDEO_LOCAL_URI
-        this.ticketVideoInternetUrl = C.DEFAULT_TICKET_VIDEO_INTERNET_URL
-        this.userId = C.DEFAULT_USER_ID
-        this.userName = C.DEFAULT_USER_NAME
-        this.userPhotoUrl = C.DEFAULT_USER_PHOTO_URL
+        ticketId = C.DEFAULT_TICKET_ID
+        ticketTitle = C.BLANK_TICKET_TITLE
+        ticketDescription = C.BLANK_DESCRIPTION_TITLE
+        ticketDate = C.DEFAULT_TICKET_DATE
+        ticketVideoPostId = C.DEFAULT_TICKET_VIDEO_POST_ID
+        ticketVideoLocalUri = C.DEFAULT_TICKET_VIDEO_LOCAL_URI
+        ticketVideoInternetUrl = C.DEFAULT_TICKET_VIDEO_INTERNET_URL
+        userId = C.DEFAULT_USER_ID
+        userName = C.DEFAULT_USER_NAME
+        userPhotoUrl = C.DEFAULT_USER_PHOTO_URL
 
     }
 
 
     @Ignore
-    fun Ticket(ticket: Ticket) {
-        this.ticketId = ticket.getTicketId()
-        this.ticketTitle = ticket.getTicketTitle()
-        this.ticketDescription = ticket.getTicketDescription()
-        this.ticketDate = ticket.getTicketDate()
-        this.ticketVideoPostId = ticket.getTicketVideoPostId()
-        this.ticketVideoLocalUri = ticket.getTicketVideoLocalUri()
-        this.ticketVideoInternetUrl = ticket.getTicketVideoInternetUrl()
-        this.userId = ticket.getUserId()
-        this.userName = ticket.getUserName()
-        this.userPhotoUrl = ticket.getUserPhotoUrl()
-
-    }
-
-
-    @Ignore
-    fun Ticket(
+    fun newTicket(
             ticketTitle: String,
             ticketDescription: String,
             ticketDate: String,
@@ -81,7 +65,7 @@ class Ticket {
     }
 
 
-    fun Ticket(
+    fun newTicket(
             ticketId: Int,
             ticketTitle: String,
             ticketDescription: String,
@@ -106,97 +90,17 @@ class Ticket {
     }
 
 
-    fun getTicketId(): Int {
-        return ticketId
-    }
-
-    fun setTicketId(ticketId: Int) {
-        this.ticketId = ticketId
-    }
-
-    fun getTicketTitle(): String? {
-        return ticketTitle
-    }
-
-    fun setTicketTitle(ticketTitle: String) {
-        this.ticketTitle = ticketTitle
-    }
-
-    fun getTicketDescription(): String? {
-        return ticketDescription
-    }
-
-    fun setTicketDescription(ticketDescription: String) {
-        this.ticketDescription = ticketDescription
-    }
-
-    fun getTicketDate(): String? {
-        return ticketDate
-    }
-
-    fun setTicketDate(ticketDate: String) {
-        this.ticketDate = ticketDate
-    }
-
-    fun getTicketVideoPostId(): String? {
-        return ticketVideoPostId
-    }
-
-    fun setTicketVideoPostId(ticketVideoPostId: String) {
-        this.ticketVideoPostId = ticketVideoPostId
-    }
-
-    fun getTicketVideoLocalUri(): String? {
-        return ticketVideoLocalUri
-    }
-
-    fun setTicketVideoLocalUri(ticketVideoLocalUri: String) {
-        this.ticketVideoLocalUri = ticketVideoLocalUri
-    }
-
-    fun getTicketVideoInternetUrl(): String? {
-        return ticketVideoInternetUrl
-    }
-
-    fun setTicketVideoInternetUrl(ticketVideoInternetUrl: String) {
-        this.ticketVideoInternetUrl = ticketVideoInternetUrl
-    }
-
-    fun getUserId(): String? {
-        return userId
-    }
-
-    fun setUserId(userId: String) {
-        this.userId = userId
-    }
-
-    fun getUserName(): String? {
-        return userName
-    }
-
-    fun setUserName(userName: String) {
-        this.userName = userName
-    }
-
-    fun getUserPhotoUrl(): String? {
-        return userPhotoUrl
-    }
-
-    fun setUserPhotoUrl(userPhotoUrl: String) {
-        this.userPhotoUrl = userPhotoUrl
-    }
-
     fun setTicket(ticket: Ticket) {
-        this.ticketId = ticket.getTicketId()
-        this.ticketTitle = ticket.getTicketTitle()
-        this.ticketDescription = ticket.getTicketDescription()
-        this.ticketDate = ticket.getTicketDate()
-        this.ticketVideoPostId = ticket.getTicketVideoPostId()
-        this.ticketVideoLocalUri = ticket.getTicketVideoLocalUri()
-        this.ticketVideoInternetUrl = ticket.getTicketVideoInternetUrl()
-        this.userId = ticket.getUserId()
-        this.userName = ticket.getUserName()
-        this.userPhotoUrl = ticket.getUserPhotoUrl()
+        ticketId = ticket.ticketId
+        ticketTitle = ticket.ticketTitle
+        ticketDescription = ticket.ticketDescription
+        ticketDate = ticket.ticketDate
+        ticketVideoPostId = ticket.ticketVideoPostId
+        ticketVideoLocalUri = ticket.ticketVideoLocalUri
+        ticketVideoInternetUrl = ticket.ticketVideoInternetUrl
+        userId = ticket.userId
+        userName = ticket.userName
+        userPhotoUrl = ticket.userPhotoUrl
 
     }
 
