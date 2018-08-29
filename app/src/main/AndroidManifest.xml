@@ -21,14 +21,21 @@
             </intent-filter>
         </activity>
 
+        <!-- TicketList Activity -->
         <activity
             android:name="project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity"
             android:label="@string/list_activity_name" />
 
+        <!-- TicketDetail Activity -->
         <activity
             android:name="project.docs.files.addrequest_kotlin.ui.TicketDetail.TicketDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="@string/item_detail_activity_name" />
+
+        <!-- FirebaseDbListener Service -->
+        <service
+            android:name=".threads.FirebaseDbListenerService"
+            android:enabled="true" />
 
     </application>
 

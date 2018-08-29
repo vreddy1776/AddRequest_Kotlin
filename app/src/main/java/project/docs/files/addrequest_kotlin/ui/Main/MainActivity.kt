@@ -13,6 +13,7 @@ import com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import project.docs.files.addrequest_kotlin.R
+import project.docs.files.addrequest_kotlin.threads.FirebaseDbListenerService
 import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
 
 class MainActivity : AppCompatActivity() {
@@ -85,6 +86,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun gotoTicketList() {
+
+        startService(Intent(this, FirebaseDbListenerService::class.java))
 
         if (mAuthStateListener != null) {
             mFirebaseAuth?.removeAuthStateListener(mAuthStateListener!!)

@@ -14,13 +14,16 @@ class TicketListViewModel : ViewModel() {
 
     fun setup() {
 
+        /*
         Thread({
             AppDatabase.getInstance().ticketDao().deleteAllTickets()
         }).start()
 
         SyncVolley.apiRestCall()
+        */
 
         mLiveDataTicketList = AppDatabase.getInstance().ticketDao().loadAllTickets()
+
 
     }
 

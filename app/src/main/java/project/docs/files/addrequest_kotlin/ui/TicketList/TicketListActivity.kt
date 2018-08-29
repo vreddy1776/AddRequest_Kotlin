@@ -11,6 +11,7 @@ import android.view.View
 import com.firebase.ui.auth.AuthUI
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.adapter.TicketAdapter
+import project.docs.files.addrequest_kotlin.threads.FirebaseDbListenerService
 import project.docs.files.addrequest_kotlin.ui.Main.MainActivity
 import project.docs.files.addrequest_kotlin.ui.TicketDetail.TicketDetailActivity
 import project.docs.files.addrequest_kotlin.utils.C
@@ -48,7 +49,7 @@ class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListene
      */
     private fun logout() {
 
-        //stopService(Intent(this, FirebaseDbListenerService::class.java))
+        stopService(Intent(this, FirebaseDbListenerService::class.java))
         //UserProfileSettings.setUserProfileAtLogout()
         AuthUI.getInstance().signOut(this)
 
