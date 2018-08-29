@@ -10,7 +10,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "project.docs.files.addrequest_kotlin"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -48,12 +48,19 @@ dependencies {
     // Stripe
     implementation 'com.stripe:stripe-android:6.1.2'
 
+    // Firebase
+    implementation 'com.google.firebase:firebase-auth:9.6.0'
+    implementation 'com.firebaseui:firebase-ui-auth:0.6.0'
+    implementation 'com.google.firebase:firebase-core:9.6.0'
+
+
+
     // Leak Canary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
 
-
+    // Testing
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -62,3 +69,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+apply plugin: 'com.google.gms.google-services'
+

@@ -1,16 +1,24 @@
 package project.docs.files.addrequest_kotlin.ui.Main
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
+import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN
+import com.google.firebase.auth.FirebaseAuth
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
 
 class MainActivity : AppCompatActivity() {
+
+
+    private var mFirebaseAuth: FirebaseAuth? = null
+    private var mAuthStateListener: FirebaseAuth.AuthStateListener? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +26,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupActionBar()
-        goToListActivity()
+
+        mFirebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuthWithGoogle()
     }
 
 
@@ -34,12 +44,69 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun goToListActivity() {
+    private fun firebaseAuthWithGoogle() {
+        mAuthStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            val user = firebaseAuth.currentUser
+            if (user != null) {
+                gotoTicketList()
+            } else {
+                goToLogin()
+            }
+        }
+    }
+
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            if (resultCode == Activity.RESULT_OK) {
+                gotoTicketList()
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                finish()
+            }
+        }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        mFirebaseAuth?.addAuthStateListener(mAuthStateListener!!)
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        if (mAuthStateListener != null) {
+            mFirebaseAuth?.removeAuthStateListener(mAuthStateListener!!)
+        }
+    }
+
+
+    private fun gotoTicketList() {
+
+        if (mAuthStateListener != null) {
+            mFirebaseAuth?.removeAuthStateListener(mAuthStateListener!!)
+        }
 
         val intent = Intent(this, TicketListActivity::class.java)
+        startActivity(intent)
+    }
+
+
+    private fun goToLogin() {
 
         val handler = Handler()
-        handler.postDelayed({ startActivity(intent) }, 3000)   //3 second
+        handler.postDelayed({
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setIsSmartLockEnabled(false)
+                            .setProviders(
+                                    AuthUI.GOOGLE_PROVIDER)
+                            .build(),
+                    RC_SIGN_IN)
+        }, 3000)   //3 second
+
     }
 
 
