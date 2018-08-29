@@ -4,7 +4,16 @@ object C {
 
 
     // Intent Keys
+    const val KEY_TICKET = "Ticket"
     const val KEY_ITEM_ID = "ticket_id"
+    const val KEY_TICKET_TITLE = "TicketTitle"
+    const val KEY_TICKET_TYPE = "TicketType"
+
+
+    // Ticket ViewTypes
+    const val ADD_TICKET_TYPE = 5
+    const val UPDATE_TICKET_TYPE = 10
+    const val VIEW_TICKET_TYPE = 15
 
 
     // Default Values

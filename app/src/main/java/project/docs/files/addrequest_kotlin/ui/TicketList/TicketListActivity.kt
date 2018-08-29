@@ -3,9 +3,11 @@ package project.docs.files.addrequest_kotlin.ui.TicketList
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.firebase.ui.auth.AuthUI
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.adapter.TicketAdapter
@@ -20,6 +22,7 @@ class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListene
     private lateinit var mRecyclerView: RecyclerView
     private var mTicketAdapter: TicketAdapter? = null
     private var mViewModel: TicketListViewModel? = null
+    private var fabButton: FloatingActionButton? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,5 +70,11 @@ class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListene
         startActivity(intent)
     }
 
+
+    fun goToTicketDetail(view: View ){
+        val addTicketIntent = Intent(this, TicketDetailActivity::class.java)
+        addTicketIntent.putExtra(C.KEY_TICKET_TYPE, C.ADD_TICKET_TYPE)
+        startActivity(addTicketIntent)
+    }
 
 }
