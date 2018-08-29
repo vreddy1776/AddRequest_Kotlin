@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBar()
 
+        FirebaseApp.getApps(this)
         mFirebaseAuth = FirebaseAuth.getInstance()
         firebaseAuthWithGoogle()
     }

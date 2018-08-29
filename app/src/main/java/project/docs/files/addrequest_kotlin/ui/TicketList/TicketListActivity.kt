@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import com.firebase.ui.auth.AuthUI
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.adapter.TicketAdapter
+import project.docs.files.addrequest_kotlin.ui.Main.MainActivity
 import project.docs.files.addrequest_kotlin.ui.TicketDetail.TicketDetailActivity
 import project.docs.files.addrequest_kotlin.utils.C
 
@@ -38,8 +40,24 @@ class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListene
     }
 
 
+    /**
+     * Log out, end Firebase DB listener service, go to main activity, and destroy activity
+     */
+    private fun logout() {
+
+        //stopService(Intent(this, FirebaseDbListenerService::class.java))
+        //UserProfileSettings.setUserProfileAtLogout()
+        AuthUI.getInstance().signOut(this)
+
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+
+    }
+
+
     override fun onBackPressed() {
-        // do nothing
+        logout()
     }
 
 
