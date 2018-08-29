@@ -52,6 +52,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:9.6.0'
     implementation 'com.firebaseui:firebase-ui-auth:0.6.0'
     implementation 'com.google.firebase:firebase-core:9.6.0'
+    implementation 'com.google.firebase:firebase-database:9.6.0'
+
 
 
 

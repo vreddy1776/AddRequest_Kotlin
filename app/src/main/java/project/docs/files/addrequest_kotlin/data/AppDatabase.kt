@@ -31,4 +31,13 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun ticketDao(): TicketDao
 
 
+    fun ticketExists(ticketId: Int): Boolean {
+
+        val cursor = INSTANCE?.query("SELECT * FROM ticket WHERE ticketId = $ticketId", null)
+        val cursorCount = cursor?.count
+
+        return cursorCount != 0
+
+    }
+
 }

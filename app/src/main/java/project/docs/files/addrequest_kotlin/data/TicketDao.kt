@@ -39,6 +39,9 @@ interface TicketDao {
      * Delete Items
      */
 
+    @Query("DELETE FROM Tickets WHERE ticketId = :ticketId")
+    fun deleteTicketById(ticketId: Int)
+
     @Query("DELETE FROM Tickets")
     fun deleteAllTickets()
 
