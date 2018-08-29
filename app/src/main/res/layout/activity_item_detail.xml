@@ -14,15 +14,41 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <TextView
-            android:id="@+id/itemName"
-            android:layout_below="@+id/toolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:paddingTop="10dp"
-            android:layout_height="100dp"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/textLight"/>
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/editTextTicketTitle"
+                android:layout_width="171dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:hint="@string/edit_ticket_title"
+                android:maxLines="1"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold"
+                android:layout_marginLeft="0dp"/>
+
+            <Button
+                android:id="@+id/submitButton"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="73dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:text="@string/submit_button"
+                android:textColor="@android:color/primary_text_dark"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginRight="5dp"
+                android:onClick="onSubmitButtonClicked"/>
+
+        </RelativeLayout>
+
 
     </android.support.v7.widget.Toolbar>
 

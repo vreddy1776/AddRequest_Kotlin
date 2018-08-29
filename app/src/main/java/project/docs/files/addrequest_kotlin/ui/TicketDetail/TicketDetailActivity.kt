@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
@@ -65,6 +66,17 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         }
     }
 
+
+    /**
+     * Add or update entry when SUBMIT button is clicked.
+     */
+    fun onSubmitButtonClicked(view: View) {
+
+        //viewModel.addTicketToDb(viewModel.tempTicket, mTicketType)
+
+        finish()
+
+    }
 
 }
 
