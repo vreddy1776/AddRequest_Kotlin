@@ -64,16 +64,15 @@
         android:layout_marginRight="16dp"/>
 
 
-    <TextView
-        android:id="@+id/itemDescription"
-        android:layout_below="@+id/itemUrl"
+    <EditText
+        android:id="@+id/editTextTicketDescription"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:textSize="16sp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:hint="@string/edit_ticket_description"
+        android:textSize="@dimen/text_normal"
+        android:layout_below="@id/itemUrl"
+        android:background="@null" />
 
 
 </RelativeLayout>
