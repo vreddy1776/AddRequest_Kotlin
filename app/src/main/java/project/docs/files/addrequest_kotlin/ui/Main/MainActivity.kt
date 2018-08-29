@@ -13,6 +13,7 @@ import com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import project.docs.files.addrequest_kotlin.R
+import project.docs.files.addrequest_kotlin.settings.UserProfileSettings
 import project.docs.files.addrequest_kotlin.threads.FirebaseDbListenerService
 import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
 
@@ -86,6 +87,15 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun gotoTicketList() {
+
+        val userId = mFirebaseAuth!!.currentUser?.uid
+        val userName = mFirebaseAuth!!.currentUser?.displayName
+        val userPhotoUrl = mFirebaseAuth!!.currentUser?.photoUrl.toString()
+
+        UserProfileSettings.setUserProfileAtLogin(
+                userId!!,
+                userName,
+                userPhotoUrl)
 
         startService(Intent(this, FirebaseDbListenerService::class.java))
 

@@ -13,18 +13,7 @@ class TicketListViewModel : ViewModel() {
     private var mLiveDataTicketList: LiveData<List<Ticket>>? = null
 
     fun setup() {
-
-        /*
-        Thread({
-            AppDatabase.getInstance().ticketDao().deleteAllTickets()
-        }).start()
-
-        SyncVolley.apiRestCall()
-        */
-
         mLiveDataTicketList = AppDatabase.getInstance().ticketDao().loadAllTickets()
-
-
     }
 
     fun updateAdapter(ticketAdapter: TicketAdapter) {
