@@ -67,7 +67,7 @@ class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListene
 
     override fun onItemClickListener(ticketId: Int) {
         val intent = Intent(this, TicketDetailActivity::class.java)
-        intent.putExtra(C.KEY_ITEM_ID, ticketId)
+        intent.putExtra(C.KEY_TICKET_ID, ticketId)
         startActivity(intent)
     }
 

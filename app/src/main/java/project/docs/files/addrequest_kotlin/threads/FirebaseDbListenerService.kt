@@ -57,27 +57,24 @@ class FirebaseDbListenerService : Service() {
     private fun attachDatabaseReadListener() {
         if (mChildEventListener == null) {
             mChildEventListener = object : ChildEventListener {
-                override fun onChildAdded(dataSnapshot: DataSnapshot, s: String) {
+
+                override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
 
                     val ticket = dataSnapshot.getValue(Ticket::class.java)
 
                     if (!AppDatabase.getInstance().ticketExists(ticket.ticketId)) {
                         Thread(Runnable { AppDatabase.getInstance().ticketDao().insertTicket(ticket) }).start()
                     }
-
                 }
 
-
-                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String) {
+                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
 
                     val ticket = dataSnapshot.getValue(Ticket::class.java)
 
                     if (AppDatabase.getInstance().ticketExists(ticket.ticketId) /* && !ticket.userId.equals(UserProfileSettings.getUserID())*/ ) {
                         Thread(Runnable { AppDatabase.getInstance().ticketDao().updateTicket(ticket) }).start()
                     }
-
                 }
-
 
                 override fun onChildRemoved(dataSnapshot: DataSnapshot) {
 
@@ -86,11 +83,9 @@ class FirebaseDbListenerService : Service() {
                     if ( AppDatabase.getInstance().ticketExists(ticket.ticketId) ) {
                         Thread(Runnable { AppDatabase.getInstance().ticketDao().deleteTicketById(ticket.ticketId) }).start()
                     }
-
                 }
 
-
-                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String) {}
+                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
                 override fun onCancelled(databaseError: DatabaseError) {}
             }
             mMessagesDatabaseReference!!.addChildEventListener(mChildEventListener)

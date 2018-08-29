@@ -17,6 +17,9 @@ import project.docs.files.addrequest_kotlin.utils.C
 class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
 
+    private var mTicketType = C.VIEW_TICKET_TYPE
+    private var mReceivedTicketId = C.DEFAULT_TICKET_ID
+
     private var mTextViewTicketName: TextView? = null
     private var mTextViewTicketDescription: TextView? = null
     private var mImageViewTicketUrl: ImageView? = null
@@ -33,8 +36,10 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         mTextViewTicketDescription = findViewById(R.id.itemDescription)
         mImageViewTicketUrl = findViewById(R.id.itemUrl)
 
+        receiveTicketInfo()
+
         mPresenter = TicketDetailPresenter()
-        mPresenter?.setupView(this, intent.getIntExtra(C.KEY_TICKET_TYPE, C.VIEW_TICKET_TYPE) , intent.getIntExtra(C.KEY_ITEM_ID,C.DEFAULT_ITEM_ID) )
+        mPresenter?.setupView(this, mTicketType, mReceivedTicketId)
 
     }
 
@@ -49,6 +54,16 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         Glide.with(this)
                 .load(itemUrl)
                 .into(this.mImageViewTicketUrl!!)
+    }
+
+
+    /**
+     * Get ticket IdUtils from MainActivity
+     */
+    private fun receiveTicketInfo() {
+        val intent = intent
+        mReceivedTicketId = intent.getIntExtra(C.KEY_TICKET_ID, C.DEFAULT_TICKET_ID)
+        mTicketType = intent.getIntExtra(C.KEY_TICKET_TYPE, C.VIEW_TICKET_TYPE)
     }
 
 
@@ -73,7 +88,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     fun onSubmitButtonClicked(view: View) {
 
         //viewModel.addTicketToDb(viewModel.tempTicket, mTicketType)
-
+        mPresenter?.addTicketToDb(mTicketType)
         finish()
 
     }

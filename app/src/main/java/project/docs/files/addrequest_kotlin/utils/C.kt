@@ -5,7 +5,7 @@ object C {
 
     // Intent Keys
     const val KEY_TICKET = "Ticket"
-    const val KEY_ITEM_ID = "ticket_id"
+    const val KEY_TICKET_ID = "ticket_id"
     const val KEY_TICKET_TITLE = "TicketTitle"
     const val KEY_TICKET_TYPE = "TicketType"
 

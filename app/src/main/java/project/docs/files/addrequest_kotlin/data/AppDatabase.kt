@@ -33,7 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     fun ticketExists(ticketId: Int): Boolean {
 
-        val cursor = INSTANCE?.query("SELECT * FROM ticket WHERE ticketId = $ticketId", null)
+        val cursor = INSTANCE?.query("SELECT * FROM Tickets WHERE ticketId = $ticketId", null)
         val cursorCount = cursor?.count
 
         return cursorCount != 0
