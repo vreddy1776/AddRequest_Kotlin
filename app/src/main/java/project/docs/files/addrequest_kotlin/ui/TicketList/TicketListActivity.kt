@@ -24,7 +24,6 @@ class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListene
     private lateinit var mRecyclerView: RecyclerView
     private var mTicketAdapter: TicketAdapter? = null
     private var mViewModel: TicketListViewModel? = null
-    private var fabButton: FloatingActionButton? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

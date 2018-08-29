@@ -100,6 +100,8 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
      */
     fun onSubmitButtonClicked(view: View) {
 
+        setTicketValues()
+        setUserValues()
         mPresenter?.addTicketToDb(mTicketType)
         finish()
 
