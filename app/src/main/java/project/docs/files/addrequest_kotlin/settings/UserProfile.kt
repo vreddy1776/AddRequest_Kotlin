@@ -6,7 +6,7 @@ import project.docs.files.addrequest_kotlin.application.MyApplication
 import project.docs.files.addrequest_kotlin.utils.NameUtils
 
 
-object UserProfileSettings {
+object UserProfile {
 
 
     private val PREFERENCES_KEY_USERID = "preferences_key_userId"
@@ -16,7 +16,7 @@ object UserProfileSettings {
     private val PREFERENCES_KEY_USER_PHOTO_URL = "preferences_key_userPhotoUrl"
 
 
-    fun getUserID(): String {
+    fun getUserID(): String? {
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.appContext)
         return prefs.getString(PREFERENCES_KEY_USERID, MyApplication.appContext?.getString(R.string.default_userid))

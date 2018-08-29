@@ -34,7 +34,7 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
      * Set up TicketClickListener.
      */
     interface TicketClickListener {
-        fun onItemClickListener(ticketId: Int)
+        fun onItemClickListener(ticketId: Int, userId: String)
     }
 
 
@@ -89,16 +89,17 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
 
         // Class variables for the item description and priority TextViews
 
-        var ticketNameView: TextView = itemView.findViewById(R.id.itemName)
-        var ticketDescriptionView: TextView = itemView.findViewById(R.id.itemDescription)
-        var ticketDateView: TextView = itemView.findViewById(R.id.itemDate)
-        var ticketUrlView: ImageView = itemView.findViewById(R.id.itemUrl)
+        var ticketNameView: TextView = itemView.findViewById(R.id.ticketTitle)
+        var ticketDescriptionView: TextView = itemView.findViewById(R.id.ticketDescription)
+        var ticketDateView: TextView = itemView.findViewById(R.id.ticketDate)
+        var ticketUrlView: ImageView = itemView.findViewById(R.id.ticketUserProfilePic)
 
         init { itemView.setOnClickListener(this) }
 
         override fun onClick(v: View) {
-            val elementId = mTicketList?.get(adapterPosition)?.ticketId
-            mTicketClickListener?.onItemClickListener(elementId!!)
+            val ticketId = mTicketList?.get(adapterPosition)?.ticketId
+            val userId = mTicketList?.get(adapterPosition)?.userId
+            mTicketClickListener?.onItemClickListener(ticketId!!, userId!!)
         }
 
     }

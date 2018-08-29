@@ -13,7 +13,7 @@ import com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import project.docs.files.addrequest_kotlin.R
-import project.docs.files.addrequest_kotlin.settings.UserProfileSettings
+import project.docs.files.addrequest_kotlin.settings.UserProfile
 import project.docs.files.addrequest_kotlin.threads.FirebaseDbListenerService
 import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
 
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         val userName = mFirebaseAuth!!.currentUser?.displayName
         val userPhotoUrl = mFirebaseAuth!!.currentUser?.photoUrl.toString()
 
-        UserProfileSettings.setUserProfileAtLogin(
+        UserProfile.setUserProfileAtLogin(
                 userId!!,
                 userName,
                 userPhotoUrl)

@@ -3,7 +3,6 @@ package project.docs.files.addrequest_kotlin.ui.TicketList
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -11,7 +10,8 @@ import android.view.View
 import com.firebase.ui.auth.AuthUI
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.adapter.TicketAdapter
-import project.docs.files.addrequest_kotlin.settings.UserProfileSettings
+import project.docs.files.addrequest_kotlin.data.AppDatabase
+import project.docs.files.addrequest_kotlin.settings.UserProfile
 import project.docs.files.addrequest_kotlin.threads.FirebaseDbListenerService
 import project.docs.files.addrequest_kotlin.ui.Main.MainActivity
 import project.docs.files.addrequest_kotlin.ui.TicketDetail.TicketDetailActivity
@@ -50,7 +50,7 @@ class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListene
     private fun logout() {
 
         stopService(Intent(this, FirebaseDbListenerService::class.java))
-        UserProfileSettings.setUserProfileAtLogout()
+        UserProfile.setUserProfileAtLogout()
         AuthUI.getInstance().signOut(this)
 
         val intent = Intent(this, MainActivity::class.java)
@@ -65,17 +65,23 @@ class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListene
     }
 
 
-    override fun onItemClickListener(ticketId: Int) {
+    override fun onItemClickListener(ticketId: Int, userId: String) {
         val intent = Intent(this, TicketDetailActivity::class.java)
+        if( UserProfile.getUserID()?.equals(userId)!! ){
+            intent.putExtra(C.KEY_TICKET_TYPE, C.UPDATE_TICKET_TYPE)
+        } else{
+            intent.putExtra(C.KEY_TICKET_TYPE, C.VIEW_TICKET_TYPE)
+        }
         intent.putExtra(C.KEY_TICKET_ID, ticketId)
         startActivity(intent)
     }
 
 
-    fun goToTicketDetail(view: View ){
-        val addTicketIntent = Intent(this, TicketDetailActivity::class.java)
-        addTicketIntent.putExtra(C.KEY_TICKET_TYPE, C.ADD_TICKET_TYPE)
-        startActivity(addTicketIntent)
+    fun onFabClick(view: View ){
+        val intent = Intent(this, TicketDetailActivity::class.java)
+        intent.putExtra(C.KEY_TICKET_TYPE, C.ADD_TICKET_TYPE)
+        startActivity(intent)
+
     }
 
 }

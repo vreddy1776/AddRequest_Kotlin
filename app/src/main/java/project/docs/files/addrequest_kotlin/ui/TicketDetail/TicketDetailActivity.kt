@@ -1,20 +1,15 @@
 package project.docs.files.addrequest_kotlin.ui.TicketDetail
 
-import android.annotation.TargetApi
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import com.bumptech.glide.Glide
+import android.widget.*
 import project.docs.files.addrequest_kotlin.R
-import project.docs.files.addrequest_kotlin.settings.UserProfileSettings
+import project.docs.files.addrequest_kotlin.settings.UserProfile
 import project.docs.files.addrequest_kotlin.utils.C
 import project.docs.files.addrequest_kotlin.utils.DateTimeUtils
 import java.util.*
@@ -25,13 +20,17 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
     private var mTitleText: EditText? = null
     private var mDescriptionText: EditText? = null
+    private var mVideoWrapper: FrameLayout? = null
+    private var mStreamVideo: FrameLayout? = null
+    private var mSubmitButton: Button? = null
+    private var mVideoButton: ImageView? = null
+    private var mVideoDeleteButton: ImageView? = null
 
     private var mTicketType = C.VIEW_TICKET_TYPE
     private var mReceivedTicketId = C.DEFAULT_TICKET_ID
 
     private var mTextViewTicketName: TextView? = null
     private var mTextViewTicketDescription: TextView? = null
-    private var mImageViewTicketUrl: ImageView? = null
 
     private var mPresenter: TicketDetailPresenter? = null
 
@@ -40,19 +39,14 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_detail)
 
-        setupActionBar()
-
-        mTitleText = findViewById(R.id.editTextTicketTitle)
-        mDescriptionText = findViewById(R.id.editTextTicketDescription)
-
-        mTextViewTicketName = findViewById(R.id.itemName)
-        mTextViewTicketDescription = findViewById(R.id.itemDescription)
-        mImageViewTicketUrl = findViewById(R.id.itemUrl)
-
         receiveTicketInfo()
 
         mPresenter = TicketDetailPresenter()
         mPresenter?.setupView(this, mTicketType, mReceivedTicketId)
+
+        //setupVideoPlayer(savedInstanceState)
+        //setupViewModelFactory()
+        initViews()
 
     }
 
@@ -64,9 +58,11 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
 
     override fun updateContent(itemUrl: String) {
+        /*
         Glide.with(this)
                 .load(itemUrl)
                 .into(this.mImageViewTicketUrl!!)
+                */
     }
 
 
@@ -77,6 +73,41 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         val intent = intent
         mReceivedTicketId = intent.getIntExtra(C.KEY_TICKET_ID, C.DEFAULT_TICKET_ID)
         mTicketType = intent.getIntExtra(C.KEY_TICKET_TYPE, C.VIEW_TICKET_TYPE)
+    }
+
+
+    /**
+     * initViews is called from onCreate to init the member variable views
+     */
+    private fun initViews() {
+
+        setupActionBar()
+
+        mTitleText = findViewById(R.id.editTextTicketTitle)
+        mDescriptionText = findViewById(R.id.editTextTicketDescription)
+        mSubmitButton = findViewById(R.id.submitButton)
+        mVideoButton = findViewById(R.id.videoButton)
+        mVideoDeleteButton = findViewById(R.id.videoDelete)
+        mVideoWrapper = findViewById(R.id.videoWrapper)
+        //mStreamVideo = findViewById(R.id.stream_video)
+
+        when (mTicketType) {
+            C.VIEW_TICKET_TYPE -> {
+                mTitleText!!.isEnabled = false
+                mDescriptionText!!.isEnabled = false
+                mSubmitButton!!.visibility = View.INVISIBLE
+            }
+            C.UPDATE_TICKET_TYPE -> mSubmitButton!!.setText(R.string.update_button)
+            C.ADD_TICKET_TYPE -> mSubmitButton!!.setText(R.string.submit_button)
+            else -> {
+                //do nothing
+            }
+        }
+
+        updateText(mPresenter?.tempTicket?.ticketTitle!!, mPresenter?.tempTicket?.ticketDescription!!)
+
+        //setVideoView()
+
     }
 
 
@@ -133,9 +164,9 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
     private fun setUserValues() {
 
-        mPresenter?.tempTicket?.userId = UserProfileSettings.getUserID()
-        mPresenter?.tempTicket?.userName = UserProfileSettings.getUsername()
-        mPresenter?.tempTicket?.userPhotoUrl = UserProfileSettings.getUserPhotoURL()
+        mPresenter?.tempTicket?.userId = UserProfile.getUserID()
+        mPresenter?.tempTicket?.userName = UserProfile.getUsername()
+        mPresenter?.tempTicket?.userPhotoUrl = UserProfile.getUserPhotoURL()
 
     }
 

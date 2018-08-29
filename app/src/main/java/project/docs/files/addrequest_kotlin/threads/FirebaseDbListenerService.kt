@@ -71,7 +71,7 @@ class FirebaseDbListenerService : Service() {
 
                     val ticket = dataSnapshot.getValue(Ticket::class.java)
 
-                    if (AppDatabase.getInstance().ticketExists(ticket.ticketId) /* && !ticket.userId.equals(UserProfileSettings.getUserID())*/ ) {
+                    if (AppDatabase.getInstance().ticketExists(ticket.ticketId) /* && !ticket.userId.equals(UserProfile.getUserID())*/ ) {
                         Thread(Runnable { AppDatabase.getInstance().ticketDao().updateTicket(ticket) }).start()
                     }
                 }

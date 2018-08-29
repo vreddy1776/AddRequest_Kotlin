@@ -20,6 +20,6 @@
         android:layout_margin="16dp"
         android:tint="@android:color/white"
         app:srcCompat="@android:drawable/ic_input_add"
-        android:onClick="goToTicketDetail"/>
+        android:onClick="onFabClick"/>
 
 </FrameLayout>
