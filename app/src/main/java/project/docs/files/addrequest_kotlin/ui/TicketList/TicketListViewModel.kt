@@ -18,7 +18,7 @@ class TicketListViewModel : ViewModel() {
             AppDatabase.getInstance().ticketDao().deleteAllTickets()
         }).start()
 
-        //SyncVolley.apiRestCall()
+        SyncVolley.apiRestCall()
 
         mLiveDataTicketList = AppDatabase.getInstance().ticketDao().loadAllTickets()
 

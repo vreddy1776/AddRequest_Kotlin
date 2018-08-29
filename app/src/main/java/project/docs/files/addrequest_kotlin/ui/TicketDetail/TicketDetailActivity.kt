@@ -33,7 +33,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         mImageViewTicketUrl = findViewById(R.id.itemUrl)
 
         mPresenter = TicketDetailPresenter()
-        mPresenter?.setupView(this, intent.getIntExtra(C.KEY_ITEM_ID, C.DEFAULT_ITEM_ID))
+        mPresenter?.setupView(this, intent.getIntExtra(C.KEY_TICKET_TYPE, C.VIEW_TICKET_TYPE) , intent.getIntExtra(C.KEY_ITEM_ID,C.DEFAULT_ITEM_ID) )
 
     }
 
