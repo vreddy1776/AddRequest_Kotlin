@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
 import android.view.View
 import com.firebase.ui.auth.AuthUI
 import project.docs.files.addrequest_kotlin.R
@@ -17,6 +18,10 @@ import project.docs.files.addrequest_kotlin.threads.FirebaseDbListenerService
 import project.docs.files.addrequest_kotlin.ui.Main.MainActivity
 import project.docs.files.addrequest_kotlin.ui.TicketDetail.TicketDetailActivity
 import project.docs.files.addrequest_kotlin.utils.C
+import android.app.Activity
+import android.R.attr.data
+
+
 
 
 class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListener {
@@ -83,6 +88,20 @@ class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListene
         intent.putExtra(C.KEY_TICKET_TYPE, C.ADD_TICKET_TYPE)
         startActivity(intent)
 
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == C.REQUEST_DELETE_TICKET) {
+            if (resultCode == Activity.RESULT_OK) {
+                Log.d("test", "requestCode:  $requestCode  ;  resultCode:  $resultCode")
+                val ticketId = data?.getIntExtra(C.KEY_TICKET_ID, C.DEFAULT_TICKET_ID)
+                mViewModel?.deleteTicket(ticketId!!)
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Log.d("test", "requestCode:  $requestCode  ;  resultCode:  $resultCode")
+            }
+        }
+        Log.d("test", "requestCode:  $requestCode  ;  resultCode:  $resultCode")
     }
 
 

@@ -1,5 +1,6 @@
 package project.docs.files.addrequest_kotlin.ui.TicketDetail
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -10,6 +11,7 @@ import android.view.WindowManager
 import android.widget.*
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.settings.UserProfile
+import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
 import project.docs.files.addrequest_kotlin.utils.C
 import project.docs.files.addrequest_kotlin.utils.DateTimeUtils
 import java.util.*
@@ -25,6 +27,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private var mSubmitButton: Button? = null
     private var mVideoButton: ImageView? = null
     private var mVideoDeleteButton: ImageView? = null
+    private var mTrashButton: ImageView? = null
 
     private var mTicketType = C.VIEW_TICKET_TYPE
     private var mReceivedTicketId = C.DEFAULT_TICKET_ID
@@ -89,6 +92,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         mVideoButton = findViewById(R.id.videoButton)
         mVideoDeleteButton = findViewById(R.id.videoDelete)
         mVideoWrapper = findViewById(R.id.videoWrapper)
+        mTrashButton = findViewById(R.id.trash)
         //mStreamVideo = findViewById(R.id.stream_video)
 
         when (mTicketType) {
@@ -96,9 +100,13 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
                 mTitleText!!.isEnabled = false
                 mDescriptionText!!.isEnabled = false
                 mSubmitButton!!.visibility = View.INVISIBLE
+                mTrashButton!!.visibility = View.INVISIBLE
             }
             C.UPDATE_TICKET_TYPE -> mSubmitButton!!.setText(R.string.update_button)
-            C.ADD_TICKET_TYPE -> mSubmitButton!!.setText(R.string.submit_button)
+            C.ADD_TICKET_TYPE -> {
+                mSubmitButton!!.setText(R.string.submit_button)
+                mTrashButton!!.visibility = View.INVISIBLE
+            }
             else -> {
                 //do nothing
             }
@@ -168,6 +176,17 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         mPresenter?.tempTicket?.userName = UserProfile.getUsername()
         mPresenter?.tempTicket?.userPhotoUrl = UserProfile.getUserPhotoURL()
 
+    }
+
+
+    fun onDeleteButtonClicked(view: View){
+        //mPresenter?.deleteTicket(mReceivedTicketId)
+
+        val intent = Intent(this, TicketListActivity::class.java)
+        intent.putExtra(C.KEY_TICKET_ID, mReceivedTicketId)
+        startActivityForResult(intent, C.REQUEST_DELETE_TICKET)
+
+        //finish()
     }
 
 

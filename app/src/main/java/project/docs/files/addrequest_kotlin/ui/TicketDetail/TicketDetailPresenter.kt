@@ -1,6 +1,7 @@
 package project.docs.files.addrequest_kotlin.ui.TicketDetail
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.Observer
 import com.google.firebase.database.FirebaseDatabase
 import project.docs.files.addrequest_kotlin.data.AppDatabase
 import project.docs.files.addrequest_kotlin.data.Ticket
@@ -9,13 +10,14 @@ import project.docs.files.addrequest_kotlin.utils.C
 
 class TicketDetailPresenter{
 
-    private var mLiveDataItem: LiveData<Ticket>? = null
+    private lateinit var mLiveDataTicket: LiveData<Ticket>
+    private lateinit var mTicketObserver: Observer<Ticket>
     var tempTicket = Ticket()
 
     fun setupView(view : TicketDetailContract.View, ticketType: Int , ticketId: Int) {
 
-        mLiveDataItem = AppDatabase.getInstance().ticketDao().loadTicketById(ticketId)
-        mLiveDataItem!!.observeForever({ ticket ->
+        mLiveDataTicket = AppDatabase.getInstance().ticketDao().loadTicketById(ticketId)
+        mLiveDataTicket!!.observeForever({ ticket ->
 
             if(ticketType != C.ADD_TICKET_TYPE){
                 tempTicket.setTicket(ticket!!)
@@ -24,6 +26,13 @@ class TicketDetailPresenter{
             }
 
         })
+
+    }
+
+
+    fun deleteTicket(ticketId: Int){
+        Thread(Runnable { AppDatabase.getInstance().ticketDao().deleteTicketById(ticketId) }).start()
+        Thread(Runnable { FirebaseDatabase.getInstance().getReference("Tickets").child(ticketId.toString()).removeValue() }).start()
     }
 
 
@@ -71,3 +80,6 @@ class TicketDetailPresenter{
     }
 
 }
+
+
+

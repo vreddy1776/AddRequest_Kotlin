@@ -21,13 +21,9 @@ class TicketListViewModel : ViewModel() {
         mLiveDataTicketList!!.observeForever({ ticketList -> ticketAdapter.setTicketList(ticketList!!) })
     }
 
-
-    fun deleteTicket(ticketId: Int) {
-
-        val FbDatabase = FirebaseDatabase.getInstance()
+    fun deleteTicket(ticketId: Int){
         Thread(Runnable { AppDatabase.getInstance().ticketDao().deleteTicketById(ticketId) }).start()
-        Thread(Runnable { AppDatabase.getInstance().ticketDao().deleteTicketById(ticketId) }).start()
-
+        Thread(Runnable { FirebaseDatabase.getInstance().getReference("Tickets").child(ticketId.toString()).removeValue() }).start()
     }
 
 }

@@ -10,6 +10,10 @@ object C {
     const val KEY_TICKET_TYPE = "TicketType"
 
 
+    // Request Codes
+    const val REQUEST_DELETE_TICKET = 11
+
+
     // Ticket ViewTypes
     const val ADD_TICKET_TYPE = 5
     const val UPDATE_TICKET_TYPE = 10

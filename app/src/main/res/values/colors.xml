@@ -18,5 +18,7 @@
     <color name="main_foreground">#B1B1B1</color>
 
     <color name="profileBackground">#FFFFFF</color>
+    <color name="toolbar_icon">#FFFFFF</color>
+
 
 </resources>

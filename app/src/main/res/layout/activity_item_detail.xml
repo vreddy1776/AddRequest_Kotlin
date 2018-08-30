@@ -34,14 +34,15 @@
                 android:layout_marginLeft="0dp"/>
 
             <ImageButton
-                android:id="@+id/chatButton"
+                android:id="@+id/trash"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_toLeftOf="@id/submitButton"
                 android:layout_centerVertical="true"
-                android:background="@drawable/btn_chat"
-                android:onClick="goToChat"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp"
+                android:background="@color/colorPrimary"
+                app:srcCompat="@android:drawable/ic_menu_delete"
+                android:onClick="onDeleteButtonClicked"/>
 
             <Button
                 android:id="@+id/submitButton"
