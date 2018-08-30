@@ -2,6 +2,7 @@ package project.docs.files.addrequest_kotlin.ui.TicketList
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
+import com.google.firebase.database.FirebaseDatabase
 import project.docs.files.addrequest_kotlin.SyncVolley
 import project.docs.files.addrequest_kotlin.adapter.TicketAdapter
 import project.docs.files.addrequest_kotlin.data.AppDatabase
@@ -20,6 +21,14 @@ class TicketListViewModel : ViewModel() {
         mLiveDataTicketList!!.observeForever({ ticketList -> ticketAdapter.setTicketList(ticketList!!) })
     }
 
+
+    fun deleteTicket(ticketId: Int) {
+
+        val FbDatabase = FirebaseDatabase.getInstance()
+        Thread(Runnable { AppDatabase.getInstance().ticketDao().deleteTicketById(ticketId) }).start()
+        Thread(Runnable { AppDatabase.getInstance().ticketDao().deleteTicketById(ticketId) }).start()
+
+    }
 
 }
 

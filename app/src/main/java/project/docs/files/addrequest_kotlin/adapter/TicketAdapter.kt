@@ -17,7 +17,7 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
 
 
     private var mTicketClickListener: TicketClickListener? = null
-    private var mTicketList: List<Ticket>? = null
+    var mTicketList: List<Ticket>? = null
 
 
     /**
