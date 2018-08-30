@@ -53,9 +53,15 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:0.6.0'
     implementation 'com.google.firebase:firebase-core:9.6.0'
     implementation 'com.google.firebase:firebase-database:9.6.0'
+    implementation 'com.google.firebase:firebase-storage:9.6.0'
+
 
     // Exoplayer
     implementation 'com.google.android.exoplayer:exoplayer:2.6.1'
+
+    // Parceler
+    implementation 'org.parceler:parceler-api:1.1.11'
+    annotationProcessor 'org.parceler:parceler:1.1.11'
 
     // Leak Canary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'

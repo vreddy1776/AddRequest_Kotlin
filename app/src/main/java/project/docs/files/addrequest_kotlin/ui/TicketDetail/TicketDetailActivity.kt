@@ -30,9 +30,12 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.TransferListener
 import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_item_detail.*
+import org.parceler.Parcels
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.application.MyApplication
+import project.docs.files.addrequest_kotlin.data.Ticket
 import project.docs.files.addrequest_kotlin.settings.UserProfile
+import project.docs.files.addrequest_kotlin.threads.VideoUploadService
 import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
 import project.docs.files.addrequest_kotlin.utils.C
 import project.docs.files.addrequest_kotlin.utils.DateTimeUtils
@@ -270,7 +273,18 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
         setTicketValues()
         setUserValues()
-        mPresenter?.addTicketToDb(mTicketType)
+
+        if (mPresenter?.tempTicket?.ticketVideoPostId.equals(C.VIDEO_CREATED_TICKET_VIDEO_POST_ID)) {
+
+            val intent = Intent(this, VideoUploadService::class.java)
+            intent.putExtra(C.KEY_TICKET, Parcels.wrap(mPresenter?.tempTicket))
+            intent.putExtra(C.KEY_TICKET_TYPE, mTicketType)
+            startService(intent)
+
+        } else {
+            mPresenter?.addTicketToDb(mTicketType)
+        }
+
         finish()
 
     }
@@ -332,7 +346,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         player = ExoPlayerFactory.newSimpleInstance(this, trackSelector)
 
         simpleExoPlayerView?.player = player
-        player.playWhenReady = shouldAutoPlay;
+        player.playWhenReady = shouldAutoPlay
         player.prepare(mediaSource)
 
     }

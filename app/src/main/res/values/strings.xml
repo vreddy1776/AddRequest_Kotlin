@@ -14,6 +14,11 @@
     <string name="edit_ticket_title">Request title&#8230;</string>  <!-- This has a unicode character for "..." = "&#8230;" -->
     <string name="edit_ticket_description">Describe your request&#8230;</string>  <!-- This has a unicode character for "..." = "&#8230;" -->
 
+    <!-- Strings for Notifications and Toasts -->
+    <string name="main_notification_channel_name">Primary</string>
+    <string name="notification_title">Request received!</string>
+    <string name="notification_body">Your video upload request has been received by AddRequest</string>
+
     <!-- Layout Strings -->
     <string name="app_function">Template for Android App - Kotlin</string>
 
