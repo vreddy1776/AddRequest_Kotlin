@@ -79,7 +79,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_add_video"/>
+            android:background="@drawable/ic_add_video"
+            android:onClick="onVideoButtonClicked"/>
 
         <com.google.android.exoplayer2.ui.SimpleExoPlayerView
             android:id="@+id/stream_video"

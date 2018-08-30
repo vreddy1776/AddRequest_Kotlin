@@ -1,9 +1,13 @@
 package project.docs.files.addrequest_kotlin.ui.TicketDetail
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
+import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -46,6 +50,10 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private var mVideoButton: ImageView? = null
     private var mVideoDeleteButton: ImageView? = null
     private var mTrashButton: ImageView? = null
+
+    private val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 4
+    private val VIDEO_REQUEST = 5
+    internal val RESULT_OK = -1
 
     private var mTicketType = C.VIEW_TICKET_TYPE
     private var mReceivedTicketId = C.DEFAULT_TICKET_ID
@@ -188,6 +196,70 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         mPresenter?.tempTicket?.ticketVideoInternetUrl = C.DEFAULT_TICKET_VIDEO_INTERNET_URL
 
         updateVideoView()
+    }
+
+
+    /**
+     * Start Camera Intent when video button is clicked.
+     */
+    fun onVideoButtonClicked(view: View) {
+        requestReadExternalStoragePermission()
+    }
+
+
+    private fun requestReadExternalStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // Optional explanation
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
+            }
+        } else {
+            // Permission has already been granted
+            val takeVideoIntent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+            startActivityForResult(takeVideoIntent, VIDEO_REQUEST)
+        }
+    }
+
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    val takeVideoIntent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+                    startActivityForResult(takeVideoIntent, VIDEO_REQUEST)
+                } else {
+                    // permission denied, boo
+                }
+                return
+            }
+        }
+    }
+
+
+    /**
+     * Get Result from Camera Video Intent.
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+
+        if (requestCode == VIDEO_REQUEST && resultCode == RESULT_OK) {
+
+            mVideoUri = data.data
+
+            mPresenter?.tempTicket?.ticketVideoPostId = C.VIDEO_CREATED_TICKET_VIDEO_POST_ID
+            mPresenter?.tempTicket?.ticketVideoLocalUri = mVideoUri.toString()
+
+            updateVideoView()
+
+        }
     }
 
 
