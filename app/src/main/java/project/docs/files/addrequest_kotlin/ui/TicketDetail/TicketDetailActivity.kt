@@ -1,6 +1,8 @@
 package project.docs.files.addrequest_kotlin.ui.TicketDetail
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -9,7 +11,9 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
+import kotlinx.android.synthetic.main.activity_item_detail.*
 import project.docs.files.addrequest_kotlin.R
+import project.docs.files.addrequest_kotlin.application.MyApplication
 import project.docs.files.addrequest_kotlin.settings.UserProfile
 import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
 import project.docs.files.addrequest_kotlin.utils.C
@@ -23,7 +27,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private var mTitleText: EditText? = null
     private var mDescriptionText: EditText? = null
     private var mVideoWrapper: FrameLayout? = null
-    private var mStreamVideo: FrameLayout? = null
+    //private var mStreamVideo: FrameLayout? = null
     private var mSubmitButton: Button? = null
     private var mVideoButton: ImageView? = null
     private var mVideoDeleteButton: ImageView? = null
@@ -32,8 +36,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private var mTicketType = C.VIEW_TICKET_TYPE
     private var mReceivedTicketId = C.DEFAULT_TICKET_ID
 
-    private var mTextViewTicketName: TextView? = null
-    private var mTextViewTicketDescription: TextView? = null
+    private var mVideoUri: Uri? = null
 
     private var mPresenter: TicketDetailPresenter? = null
 
@@ -55,8 +58,8 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
 
     override fun updateText(itemName: String, itemDescription: String) {
-        mTextViewTicketName?.text = itemName
-        mTextViewTicketDescription?.text = itemDescription
+        mTitleText?.setText(itemName)
+        mDescriptionText?.setText(itemDescription)
     }
 
 
@@ -114,7 +117,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
         updateText(mPresenter?.tempTicket?.ticketTitle!!, mPresenter?.tempTicket?.ticketDescription!!)
 
-        //setVideoView()
+        setVideoView()
 
     }
 
@@ -131,6 +134,52 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
         }
+    }
+
+
+    fun setVideoView() {
+
+        if (mPresenter?.tempTicket?.ticketVideoPostId.equals(C.DEFAULT_TICKET_VIDEO_POST_ID)) {
+            //mStreamVideo?.visibility = View.INVISIBLE
+            mVideoButton?.visibility = View.VISIBLE
+            mVideoDeleteButton?.visibility = View.INVISIBLE
+            if (mTicketType == C.VIEW_TICKET_TYPE) {
+                mVideoWrapper?.background = ContextCompat.getDrawable(MyApplication.appContext!!, R.drawable.background_border_solid)
+                mVideoButton?.background = ContextCompat.getDrawable(MyApplication.appContext!!, R.drawable.ic_no_video)
+                mVideoButton?.isEnabled = false
+            } else {
+                videoWrapper.background = ContextCompat.getDrawable(MyApplication.appContext!!, R.drawable.background_border_dashed)
+                videoButton.background = ContextCompat.getDrawable(MyApplication.appContext!!, R.drawable.ic_add_video)
+                videoButton.isEnabled = true
+            }
+        } else {
+            //mStreamVideo?.visibility = View.VISIBLE
+            mVideoButton?.visibility = View.INVISIBLE
+            videoWrapper.setBackgroundColor(ContextCompat.getColor(MyApplication.appContext!!, R.color.videoBackground))
+            if (mTicketType != C.VIEW_TICKET_TYPE) {
+                mVideoDeleteButton?.visibility = View.VISIBLE
+            }
+            mVideoUri = if(mPresenter?.tempTicket?.ticketVideoPostId.equals(C.VIDEO_EXISTS_TICKET_VIDEO_POST_ID)) {
+                Uri.parse(mPresenter?.tempTicket!!.ticketVideoInternetUrl)
+            } else {
+                Uri.parse(mPresenter?.tempTicket!!.ticketVideoLocalUri)
+            }
+            /*
+            currentWindow = 0
+            playbackPosition = 0
+            initializePlayer()
+            */
+        }
+    }
+
+
+    fun onVideoDeleteButtonClicked(view: View) {
+
+        mPresenter?.tempTicket?.ticketVideoPostId = C.DEFAULT_TICKET_VIDEO_POST_ID
+        mPresenter?.tempTicket?.ticketVideoLocalUri = C.DEFAULT_TICKET_VIDEO_LOCAL_URI
+        mPresenter?.tempTicket?.ticketVideoInternetUrl = C.DEFAULT_TICKET_VIDEO_INTERNET_URL
+
+        setVideoView()
     }
 
 

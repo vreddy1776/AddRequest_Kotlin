@@ -24,6 +24,11 @@ object C {
     const val DEFAULT_ITEM_ID = -1
 
 
+    // Video Id's
+    const val VIDEO_CREATED_TICKET_VIDEO_POST_ID = "video_created"
+    const val VIDEO_EXISTS_TICKET_VIDEO_POST_ID = "video_exists"
+
+
     // Edit Text Values
     const val BLANK_TICKET_TITLE = ""
     const val BLANK_DESCRIPTION_TITLE = ""
