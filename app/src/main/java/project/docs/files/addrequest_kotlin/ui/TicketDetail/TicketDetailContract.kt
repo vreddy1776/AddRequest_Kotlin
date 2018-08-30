@@ -5,10 +5,10 @@ class TicketDetailContract{
 
     interface View{
 
-        fun updateText(itemName: String,
-                       itemDescription: String)
+        fun updateText(ticketTitle: String,
+                       ticketDescription: String)
 
-        fun updateContent(itemUrl: String)
+        fun updateVideoView()
 
     }
 

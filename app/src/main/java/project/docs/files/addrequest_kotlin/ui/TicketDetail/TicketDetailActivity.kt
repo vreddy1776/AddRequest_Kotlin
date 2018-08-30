@@ -1,7 +1,6 @@
 package project.docs.files.addrequest_kotlin.ui.TicketDetail
 
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -50,25 +49,14 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         mPresenter = TicketDetailPresenter()
         mPresenter?.setupView(this, mTicketType, mReceivedTicketId)
 
-        //setupVideoPlayer(savedInstanceState)
-        //setupViewModelFactory()
         initViews()
 
     }
 
 
-    override fun updateText(itemName: String, itemDescription: String) {
-        mTitleText?.setText(itemName)
-        mDescriptionText?.setText(itemDescription)
-    }
-
-
-    override fun updateContent(itemUrl: String) {
-        /*
-        Glide.with(this)
-                .load(itemUrl)
-                .into(this.mImageViewTicketUrl!!)
-                */
+    override fun updateText(ticketTitle: String, ticketDescription: String) {
+        mTitleText?.setText(ticketTitle)
+        mDescriptionText?.setText(ticketDescription)
     }
 
 
@@ -117,7 +105,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
         updateText(mPresenter?.tempTicket?.ticketTitle!!, mPresenter?.tempTicket?.ticketDescription!!)
 
-        setVideoView()
+        updateVideoView()
 
     }
 
@@ -137,7 +125,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     }
 
 
-    fun setVideoView() {
+    override fun updateVideoView() {
 
         if (mPresenter?.tempTicket?.ticketVideoPostId.equals(C.DEFAULT_TICKET_VIDEO_POST_ID)) {
             //mStreamVideo?.visibility = View.INVISIBLE
@@ -179,7 +167,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         mPresenter?.tempTicket?.ticketVideoLocalUri = C.DEFAULT_TICKET_VIDEO_LOCAL_URI
         mPresenter?.tempTicket?.ticketVideoInternetUrl = C.DEFAULT_TICKET_VIDEO_INTERNET_URL
 
-        setVideoView()
+        updateVideoView()
     }
 
 

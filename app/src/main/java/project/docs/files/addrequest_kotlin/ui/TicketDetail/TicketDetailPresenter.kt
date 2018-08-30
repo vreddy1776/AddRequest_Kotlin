@@ -22,7 +22,7 @@ class TicketDetailPresenter{
             if(ticketType != C.ADD_TICKET_TYPE){
                 tempTicket.setTicket(ticket!!)
                 view.updateText(ticket.ticketTitle!!, ticket.ticketDescription!!)
-                view.updateContent(ticket.userPhotoUrl!!)
+                view.updateVideoView()
             }
 
         })
