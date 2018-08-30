@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
+import android.view.WindowManager
 import android.widget.*
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -18,6 +19,7 @@ import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView
 import com.google.android.exoplayer2.upstream.*
+import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.application.MyApplication
@@ -53,6 +55,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
     private var mPresenter: TicketDetailPresenter? = null
 
+    /*
     private var simpleExoPlayerView: SimpleExoPlayerView? = null
     private var mPlayer: SimpleExoPlayer? = null
     private var window: Timeline.Window? = null
@@ -64,13 +67,18 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private var currentWindow: Int = 0
     private var playbackPosition: Long = 0
     private var videoUri: Uri? = null
+    */
+
+    private lateinit var player: SimpleExoPlayer
+    private var shouldAutoPlay: Boolean = false
+    private lateinit var trackSelector: DefaultTrackSelector
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_detail)
 
-        setupVideoPlayer(savedInstanceState)
+        //setupVideoPlayer(savedInstanceState)
         receiveTicketInfo()
 
         mPresenter = TicketDetailPresenter()
@@ -86,6 +94,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
      */
     private fun setupVideoPlayer(savedInstanceState: Bundle?) {
 
+        /*
         if (savedInstanceState == null) {
             playWhenReady = true
             currentWindow = 0
@@ -101,6 +110,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         bandwidthMeter = DefaultBandwidthMeter()
         mediaDataSourceFactory = DefaultDataSourceFactory(this, com.google.android.exoplayer2.util.Util.getUserAgent(this, "mediaPlayerSample"), bandwidthMeter as TransferListener<in DataSource>)
         window = Timeline.Window()
+        */
 
     }
 
@@ -126,6 +136,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
      */
     override fun onSaveInstanceState(outState: Bundle) {
 
+        /*
         outState.putInt(INSTANCE_TICKET_TYPE_KEY, mTicketType)
         outState.putInt(INSTANCE_TICKET_ID_KEY, mReceivedTicketId)
 
@@ -136,6 +147,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         outState.putBoolean(INSTANCE_PLAY_WHEN_READY_KEY, playWhenReady)
         outState.putInt(INSTANCE_CURRENT_WINDOW_KEY, currentWindow)
         outState.putLong(INSTANCE_PLAY_BACK_POSITION_KEY, playbackPosition)
+        */
 
         super.onSaveInstanceState(outState)
     }
@@ -189,11 +201,10 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
         val window = this.window
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            /*
+
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
-            */
         }
     }
 
@@ -201,7 +212,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     override fun updateVideoView() {
 
         if (mPresenter?.tempTicket?.ticketVideoPostId.equals(C.DEFAULT_TICKET_VIDEO_POST_ID)) {
-            //mStreamVideo?.visibility = View.INVISIBLE
+            mStreamVideo?.visibility = View.INVISIBLE
             mVideoButton?.visibility = View.VISIBLE
             mVideoDeleteButton?.visibility = View.INVISIBLE
             if (mTicketType == C.VIEW_TICKET_TYPE) {
@@ -214,7 +225,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
                 videoButton.isEnabled = true
             }
         } else {
-            //mStreamVideo?.visibility = View.VISIBLE
+            mStreamVideo?.visibility = View.VISIBLE
             mVideoButton?.visibility = View.INVISIBLE
             videoWrapper.setBackgroundColor(ContextCompat.getColor(MyApplication.appContext!!, R.color.videoBackground))
             if (mTicketType != C.VIEW_TICKET_TYPE) {
@@ -225,9 +236,11 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
             } else {
                 Uri.parse(mPresenter?.tempTicket!!.ticketVideoLocalUri)
             }
-            currentWindow = 0
-            playbackPosition = 0
-            initializePlayer()
+            //currentWindow = 0
+            //playbackPosition = 0
+            initPlayer()
+            shouldAutoPlay = true
+
 
         }
     }
@@ -290,76 +303,63 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
     fun onDeleteButtonClicked(view: View){
         //mPresenter?.deleteTicket(mReceivedTicketId)
-
         val intent = Intent(this, TicketListActivity::class.java)
         intent.putExtra(C.KEY_TICKET_ID, mReceivedTicketId)
         startActivityForResult(intent, C.REQUEST_DELETE_TICKET)
-
         //finish()
     }
 
 
-    private fun initializePlayer() {
-
-        simpleExoPlayerView = findViewById(R.id.stream_video)
-        simpleExoPlayerView!!.requestFocus()
-
+    fun initPlayer(){
+        val simpleExoPlayerView = findViewById<SimpleExoPlayerView>(R.id.stream_video)
+        val bandwidthMeter = DefaultBandwidthMeter()
+        val extractorsFactory = DefaultExtractorsFactory()
         val videoTrackSelectionFactory = AdaptiveTrackSelection.Factory(bandwidthMeter)
+        val mediaDataSourceFactory = DefaultDataSourceFactory(this, Util.getUserAgent(this, "mediaPlayerSample"), bandwidthMeter as TransferListener<in DataSource>)
+        val mediaSource = ExtractorMediaSource(mVideoUri,
+                mediaDataSourceFactory, extractorsFactory, null, null)
+
+        simpleExoPlayerView?.requestFocus()
         trackSelector = DefaultTrackSelector(videoTrackSelectionFactory)
 
-        mPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector)
-        simpleExoPlayerView!!.player = mPlayer
-        mPlayer.playWhenReady = shouldAutoPlay
-        mPlayer.seekTo(currentWindow, playbackPosition)
+        player = ExoPlayerFactory.newSimpleInstance(this, trackSelector)
 
-        val extractorsFactory = DefaultExtractorsFactory()
-        val mediaSource = ExtractorMediaSource(videoUri,
-                mediaDataSourceFactory, extractorsFactory, null, null)
-        mPlayer.prepare(mediaSource, true, false)
+        simpleExoPlayerView?.player = player
+        player.playWhenReady = shouldAutoPlay;
+        player.prepare(mediaSource)
 
     }
 
 
-    private fun releasePlayer() {
-        if (mPlayer != null) {
-            playbackPosition = mPlayer!!.getCurrentPosition()
-            currentWindow = mPlayer!!.getCurrentWindowIndex()
-            playWhenReady = mPlayer!!.getPlayWhenReady()
-            shouldAutoPlay = mPlayer!!.getPlayWhenReady()
-            mPlayer!!.release()
-            mPlayer = null
-            trackSelector = null
-        }
+    fun releasePlayer() {
+        player.release()
+        shouldAutoPlay = player.playWhenReady
     }
 
-
-    public override fun onStart() {
+    override fun onStart() {
         super.onStart()
-        if (com.google.android.exoplayer2.util.Util.SDK_INT > 23) {
-            //initializePlayer();
+        if (Util.SDK_INT > 23) {
+            initPlayer()
         }
     }
 
-
-    public override fun onResume() {
+    override fun onResume() {
         super.onResume()
-        if (com.google.android.exoplayer2.util.Util.SDK_INT <= 23 || mPlayer == null) {
-            initializePlayer()
+        if ((Util.SDK_INT <= 23)) {
+            initPlayer()
         }
     }
 
-
-    public override fun onPause() {
+    override fun onPause() {
         super.onPause()
-        if (com.google.android.exoplayer2.util.Util.SDK_INT <= 23) {
+        if (Util.SDK_INT <= 23) {
             releasePlayer()
         }
     }
 
-
-    public override fun onStop() {
+    override fun onStop() {
         super.onStop()
-        if (com.google.android.exoplayer2.util.Util.SDK_INT > 23) {
+        if (Util.SDK_INT > 23) {
             releasePlayer()
         }
     }
