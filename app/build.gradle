@@ -54,8 +54,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:9.6.0'
     implementation 'com.google.firebase:firebase-database:9.6.0'
 
-
-
+    // Exoplayer
+    implementation 'com.google.android.exoplayer:exoplayer:2.6.1'
 
     // Leak Canary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
