@@ -9,16 +9,21 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.WindowManager
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageView
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.Timeline
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView
-import com.google.android.exoplayer2.upstream.*
+import com.google.android.exoplayer2.upstream.DataSource
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.upstream.TransferListener
 import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import project.docs.files.addrequest_kotlin.R
@@ -42,32 +47,12 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private var mVideoDeleteButton: ImageView? = null
     private var mTrashButton: ImageView? = null
 
-    private val INSTANCE_TICKET_TYPE_KEY = "instanceTicketType"
-    private val INSTANCE_TICKET_ID_KEY = "instanceTicketId"
-    private val INSTANCE_PLAY_WHEN_READY_KEY = "playWhenReady"
-    private val INSTANCE_CURRENT_WINDOW_KEY = "currentWindow"
-    private val INSTANCE_PLAY_BACK_POSITION_KEY = "playBackPosition"
-
     private var mTicketType = C.VIEW_TICKET_TYPE
     private var mReceivedTicketId = C.DEFAULT_TICKET_ID
 
     private var mVideoUri: Uri? = null
 
     private var mPresenter: TicketDetailPresenter? = null
-
-    /*
-    private var simpleExoPlayerView: SimpleExoPlayerView? = null
-    private var mPlayer: SimpleExoPlayer? = null
-    private var window: Timeline.Window? = null
-    private var mediaDataSourceFactory: DataSource.Factory? = null
-    private var trackSelector: DefaultTrackSelector? = null
-    private var shouldAutoPlay: Boolean = false
-    private var bandwidthMeter: BandwidthMeter? = null
-    private var playWhenReady: Boolean = false
-    private var currentWindow: Int = 0
-    private var playbackPosition: Long = 0
-    private var videoUri: Uri? = null
-    */
 
     private lateinit var player: SimpleExoPlayer
     private var shouldAutoPlay: Boolean = false
@@ -78,39 +63,12 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_detail)
 
-        //setupVideoPlayer(savedInstanceState)
         receiveTicketInfo()
 
         mPresenter = TicketDetailPresenter()
         mPresenter?.setupView(this, mTicketType, mReceivedTicketId)
 
         initViews()
-
-    }
-
-
-    /**
-     * Set up Video Player
-     */
-    private fun setupVideoPlayer(savedInstanceState: Bundle?) {
-
-        /*
-        if (savedInstanceState == null) {
-            playWhenReady = true
-            currentWindow = 0
-            playbackPosition = 0
-        } else {
-            playWhenReady = savedInstanceState.getBoolean("playWhenReady")
-            currentWindow = savedInstanceState.getInt("currentWindow")
-            playbackPosition = savedInstanceState.getLong("playBackPosition")
-        }
-
-        shouldAutoPlay = true
-
-        bandwidthMeter = DefaultBandwidthMeter()
-        mediaDataSourceFactory = DefaultDataSourceFactory(this, com.google.android.exoplayer2.util.Util.getUserAgent(this, "mediaPlayerSample"), bandwidthMeter as TransferListener<in DataSource>)
-        window = Timeline.Window()
-        */
 
     }
 
@@ -130,27 +88,6 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         mTicketType = intent.getIntExtra(C.KEY_TICKET_TYPE, C.VIEW_TICKET_TYPE)
     }
 
-
-    /**
-     * Save the instance ticket IdUtils in case of screen rotation or app exit
-     */
-    override fun onSaveInstanceState(outState: Bundle) {
-
-        /*
-        outState.putInt(INSTANCE_TICKET_TYPE_KEY, mTicketType)
-        outState.putInt(INSTANCE_TICKET_ID_KEY, mReceivedTicketId)
-
-        playbackPosition = mPlayer?.currentPosition!!
-        currentWindow = mPlayer?.currentWindowIndex!!
-        playWhenReady = mPlayer?.playWhenReady!!
-
-        outState.putBoolean(INSTANCE_PLAY_WHEN_READY_KEY, playWhenReady)
-        outState.putInt(INSTANCE_CURRENT_WINDOW_KEY, currentWindow)
-        outState.putLong(INSTANCE_PLAY_BACK_POSITION_KEY, playbackPosition)
-        */
-
-        super.onSaveInstanceState(outState)
-    }
 
 
     /**
@@ -236,8 +173,6 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
             } else {
                 Uri.parse(mPresenter?.tempTicket!!.ticketVideoLocalUri)
             }
-            //currentWindow = 0
-            //playbackPosition = 0
             initPlayer()
             shouldAutoPlay = true
 
