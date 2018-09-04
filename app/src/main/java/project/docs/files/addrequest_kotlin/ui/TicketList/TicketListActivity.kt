@@ -6,22 +6,17 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
 import android.view.View
 import com.firebase.ui.auth.AuthUI
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.adapter.TicketAdapter
-import project.docs.files.addrequest_kotlin.data.AppDatabase
 import project.docs.files.addrequest_kotlin.settings.UserProfile
-import project.docs.files.addrequest_kotlin.threads.FirebaseDbListenerService
+import project.docs.files.addrequest_kotlin.services.FirebaseDbListenerService
 import project.docs.files.addrequest_kotlin.ui.Main.MainActivity
 import project.docs.files.addrequest_kotlin.ui.TicketDetail.TicketDetailActivity
 import project.docs.files.addrequest_kotlin.utils.C
 import android.app.Activity
-import android.R.attr.data
-
-
 
 
 class TicketListActivity : AppCompatActivity(), TicketAdapter.TicketClickListener {

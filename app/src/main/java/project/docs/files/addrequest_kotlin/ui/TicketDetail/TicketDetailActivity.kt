@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcel
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -27,14 +26,12 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.TransferListener
 import com.google.android.exoplayer2.util.Util
-import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import org.parceler.Parcels
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.application.MyApplication
-import project.docs.files.addrequest_kotlin.data.Ticket
 import project.docs.files.addrequest_kotlin.settings.UserProfile
-import project.docs.files.addrequest_kotlin.threads.VideoUploadService
+import project.docs.files.addrequest_kotlin.services.VideoUploadService
 import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
 import project.docs.files.addrequest_kotlin.utils.C
 import project.docs.files.addrequest_kotlin.utils.DateTimeUtils
