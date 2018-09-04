@@ -59,6 +59,7 @@ class VideoUploadService : Service() {
             tempTicket.ticketVideoPostId = C.VIDEO_EXISTS_TICKET_VIDEO_POST_ID
             tempTicket.ticketVideoInternetUrl = taskSnapshot.downloadUrl.toString()
             addTicketToDb(tempTicket, ticketType)
+            Notifications.ticketPostedNotification(tempTicket.ticketId)
             stopSelf()
         }
 

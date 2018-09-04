@@ -31,9 +31,9 @@ object Notifications {
      * can be handy when we need to cancel the notification, or perhaps update it. This number is
      * arbitrary and can be set to whatever you like. 1138 is in no way significant.
      */
-    private val NOTIFICATION_ID = 1138
-    private val MAIN_NOTIFICATION_CHANNEL_ID = "main_notification_channel"
-    private val OPEN_REQUEST = 0
+    private const val NOTIFICATION_ID = 1138
+    private const val MAIN_NOTIFICATION_CHANNEL_ID = "main_notification_channel"
+    private const val OPEN_REQUEST = 0
     private var mTicketID = C.DEFAULT_TICKET_ID
 
 
@@ -55,7 +55,6 @@ object Notifications {
         val notificationBuilder = NotificationCompat.Builder(context, MAIN_NOTIFICATION_CHANNEL_ID)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setLargeIcon(largeIcon(context))
                 .setContentTitle(context.getString(R.string.notification_title))
                 .setContentText(context.getString(R.string.notification_body))
                 .setStyle(NotificationCompat.BigTextStyle().bigText(
@@ -84,11 +83,9 @@ object Notifications {
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT)
 
-        val action = NotificationCompat.Action(R.drawable.ic_launcher_foreground,
+        return NotificationCompat.Action(R.drawable.ic_launcher_foreground,
                 "View Your Request",
                 pendingIntent)
-
-        return action
 
     }
 
@@ -98,10 +95,4 @@ object Notifications {
         notificationManager.cancelAll()
     }
 
-
-    private fun largeIcon(context: Context): Bitmap {
-        val res = context.resources
-        val largeIcon = BitmapFactory.decodeResource(res, R.drawable.ic_launcher_foreground)
-        return largeIcon
-    }
 }
