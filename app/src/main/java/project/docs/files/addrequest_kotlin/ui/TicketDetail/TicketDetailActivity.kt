@@ -276,7 +276,11 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
         if (mPresenter?.tempTicket?.ticketVideoPostId.equals(C.VIDEO_CREATED_TICKET_VIDEO_POST_ID)) {
 
+            var videoTicket = Ticket()
+            videoTicket.setTicket(mPresenter?.tempTicket!!)
+
             val intent = Intent(this, VideoUploadService::class.java)
+            intent.putExtra(C.KEY_TICKET, Parcels.wrap(videoTicket))
             intent.putExtra(C.KEY_TICKET, Parcels.wrap(mPresenter?.tempTicket))
             intent.putExtra(C.KEY_TICKET_TYPE, mTicketType)
             startService(intent)

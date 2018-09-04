@@ -5,6 +5,8 @@ apply plugin: 'kotlin-kapt'
 
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.kotlin.android.extensions'
+
 
 android {
     compileSdkVersion 27
@@ -21,6 +23,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    androidExtensions {
+        experimental = true
     }
 }
 
@@ -58,10 +63,6 @@ dependencies {
 
     // Exoplayer
     implementation 'com.google.android.exoplayer:exoplayer:2.6.1'
-
-    // Parceler
-    implementation 'org.parceler:parceler-api:1.1.11'
-    annotationProcessor 'org.parceler:parceler:1.1.11'
 
     // Leak Canary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'

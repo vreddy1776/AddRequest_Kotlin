@@ -17,7 +17,7 @@ class TicketDetailPresenter{
     fun setupView(view : TicketDetailContract.View, ticketType: Int , ticketId: Int) {
 
         mLiveDataTicket = AppDatabase.getInstance().ticketDao().loadTicketById(ticketId)
-        mLiveDataTicket!!.observeForever({ ticket ->
+        mLiveDataTicket.observeForever { ticket ->
 
             if(ticketType != C.ADD_TICKET_TYPE){
                 tempTicket.setTicket(ticket!!)
@@ -25,7 +25,7 @@ class TicketDetailPresenter{
                 view.updateVideoView()
             }
 
-        })
+        }
 
     }
 

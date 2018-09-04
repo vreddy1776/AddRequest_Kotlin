@@ -3,12 +3,15 @@ package project.docs.files.addrequest_kotlin.data
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+import org.parceler.Parcel
 import project.docs.files.addrequest_kotlin.utils.C
 import project.docs.files.addrequest_kotlin.utils.IdUtils
 
-
+@Parcelize
 @Entity(tableName = "Tickets")
-class Ticket {
+class Ticket : Parcelable {
 
 
     @PrimaryKey(autoGenerate = true)
