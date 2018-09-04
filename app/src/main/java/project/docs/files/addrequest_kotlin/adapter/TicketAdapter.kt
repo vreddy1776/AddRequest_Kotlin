@@ -11,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.application.MyApplication
 import project.docs.files.addrequest_kotlin.data.Ticket
+import project.docs.files.addrequest_kotlin.utils.C
 
 
 class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
@@ -56,10 +57,22 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
         holder.ticketDescriptionView.text = ticket.ticketDescription
         holder.ticketDateView.text = ticket.ticketDate
 
+        if (ticket.ticketVideoPostId == C.DEFAULT_TICKET_VIDEO_POST_ID) {
+            holder.ticketVideoThumbnailView.visibility = View.INVISIBLE
+        } else {
+            holder.ticketVideoThumbnailView.visibility = View.VISIBLE
+            val requestOptions = RequestOptions()
+            requestOptions.isMemoryCacheable
+            Glide.with(MyApplication.appContext!!)
+                    .load(ticket.ticketVideoInternetUrl)
+                    .thumbnail(0.1f)
+                    .into(holder.ticketVideoThumbnailView)
+        }
+
         Glide.with(MyApplication.appContext!!)
                 .load(ticket.userPhotoUrl)
                 .apply(RequestOptions.circleCropTransform())
-                .into(holder.ticketUrlView)
+                .into(holder.ticketUserUrlView)
 
     }
 
@@ -92,7 +105,9 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
         var ticketNameView: TextView = itemView.findViewById(R.id.ticketTitle)
         var ticketDescriptionView: TextView = itemView.findViewById(R.id.ticketDescription)
         var ticketDateView: TextView = itemView.findViewById(R.id.ticketDate)
-        var ticketUrlView: ImageView = itemView.findViewById(R.id.ticketUserProfilePic)
+        var ticketUserUrlView: ImageView = itemView.findViewById(R.id.ticketUserProfilePic)
+        var ticketVideoThumbnailView: ImageView = itemView.findViewById(R.id.videoThumbnail)
+
 
         init { itemView.setOnClickListener(this) }
 
