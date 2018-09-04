@@ -259,9 +259,6 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
             mPresenter?.tempTicket?.ticketVideoPostId = C.VIDEO_CREATED_TICKET_VIDEO_POST_ID
             mPresenter?.tempTicket?.ticketVideoLocalUri = mVideoUri.toString()
 
-            Toast.makeText(this, mPresenter?.tempTicket?.ticketVideoLocalUri, Toast.LENGTH_SHORT).show()
-
-
             updateVideoView()
 
         }
@@ -278,21 +275,8 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
         if (mPresenter?.tempTicket?.ticketVideoPostId.equals(C.VIDEO_CREATED_TICKET_VIDEO_POST_ID)) {
 
-            /*
-            var videoTicket = Ticket()
-            videoTicket.setTicket(mPresenter?.tempTicket!!)
-
-            val bundle = Bundle()
-            bundle.putParcelable(C.KEY_TICKET, videoTicket)
-            bundle.putInt(C.KEY_TICKET_TYPE, mTicketType)
-            */
-
             val intent = Intent(this, VideoUploadService::class.java)
-            //intent.putExtra(C.KEY_TICKET, Parcels.wrap(videoTicket))
-            //intent.putExtra(C.KEY_TICKET, Parcelize.wrap(mPresenter?.tempTicket))
-            //intent.putP
             intent.putExtra(C.KEY_TICKET, Parcels.wrap(mPresenter?.tempTicket))
-            //intent.putExtra("bundle", bundle)
             intent.putExtra(C.KEY_TICKET_TYPE, mTicketType)
             startService(intent)
 
