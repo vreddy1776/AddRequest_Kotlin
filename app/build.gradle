@@ -64,6 +64,10 @@ dependencies {
     // Exoplayer
     implementation 'com.google.android.exoplayer:exoplayer:2.6.1'
 
+    //Parceler
+    implementation 'org.parceler:parceler-api:1.1.11'
+    annotationProcessor 'org.parceler:parceler:1.1.11'
+
     // Leak Canary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'

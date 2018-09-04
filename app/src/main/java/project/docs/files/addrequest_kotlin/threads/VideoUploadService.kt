@@ -4,6 +4,8 @@ import android.app.Service
 import android.content.Intent
 import android.net.Uri
 import android.os.IBinder
+import android.util.Log
+import android.widget.Toast
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.FirebaseDatabase
@@ -32,6 +34,16 @@ class VideoUploadService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
+        Log.d("videoTest","onStartCommand")
+        Toast.makeText(this, "onStartCommand", Toast.LENGTH_SHORT).show()
+
+        //val bundle = intent.getBundleExtra("bundle")
+        //var person  = bundle.getParcelable<Person>("selected_person") as Person
+
+        //val ticket = intent.getBundleExtra(C.KEY_TICKET).getParcelable(C.KEY_TICKET) as Ticket
+        //val ticket = bundle.getParcelable(C.KEY_TICKET) as Ticket
+        //val ticketType = bundle.getInt(C.KEY_TICKET_TYPE)
+
         val ticket = Parcels.unwrap<Any>(intent.getParcelableExtra(C.KEY_TICKET)) as Ticket
         val ticketType = intent.extras!!.get(C.KEY_TICKET_TYPE) as Int
 
@@ -43,25 +55,33 @@ class VideoUploadService : Service() {
 
     private fun uploadVideo(tempTicket: Ticket, ticketType: Int) {
 
+        Log.d("videoTest","uploadvideo")
+        Toast.makeText(this, "uploadVideo", Toast.LENGTH_SHORT).show()
+
         val firebaseStorage = FirebaseStorage.getInstance()
-        val firebaseVideoRef = firebaseStorage.getReference().child("Videos")
+        val firebaseVideoRef = firebaseStorage.reference.child("Videos")
+
+        Toast.makeText(this, tempTicket.ticketVideoLocalUri, Toast.LENGTH_SHORT).show()
 
         val capturedVideoUri = Uri.parse(tempTicket.ticketVideoLocalUri)
         val localVideoRef = firebaseVideoRef.child(capturedVideoUri.lastPathSegment)
         val uploadTask = localVideoRef.putFile(capturedVideoUri)
 
-        uploadTask.addOnFailureListener(OnFailureListener { stopSelf() }).addOnSuccessListener(OnSuccessListener<Any> { taskSnapshot ->
-            tempTicket.ticketVideoPostId = C.VIDEO_EXISTS_TICKET_VIDEO_POST_ID
-            //tempTicket.ticketVideoInternetUrl = taskSnapshot.getDownloadUrl().toString()
-            tempTicket.ticketVideoInternetUrl = taskSnapshot.toString()
+        uploadTask.addOnFailureListener {
+            Toast.makeText(this, "video upload failed", Toast.LENGTH_SHORT).show()
+            stopSelf()
+        }.addOnSuccessListener { taskSnapshot ->
 
+            Toast.makeText(this, "video upload success", Toast.LENGTH_SHORT).show()
+
+            tempTicket.ticketVideoPostId = C.VIDEO_EXISTS_TICKET_VIDEO_POST_ID
+            tempTicket.ticketVideoInternetUrl = taskSnapshot.downloadUrl.toString()
+            //tempTicket.ticketVideoInternetUrl = taskSnapshot.toString()
 
             addTicketToDb(tempTicket, ticketType)
-
-            Notifications.ticketPostedNotification(tempTicket.ticketId)
-
+            //Notifications.ticketPostedNotification(tempTicket.ticketId)
             stopSelf()
-        })
+        }
 
     }
 

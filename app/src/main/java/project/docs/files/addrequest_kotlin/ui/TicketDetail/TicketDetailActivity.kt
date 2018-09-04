@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcel
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -13,10 +14,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.ImageView
+import android.widget.*
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
@@ -29,6 +27,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.TransferListener
 import com.google.android.exoplayer2.util.Util
+import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import org.parceler.Parcels
 import project.docs.files.addrequest_kotlin.R
@@ -260,6 +259,9 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
             mPresenter?.tempTicket?.ticketVideoPostId = C.VIDEO_CREATED_TICKET_VIDEO_POST_ID
             mPresenter?.tempTicket?.ticketVideoLocalUri = mVideoUri.toString()
 
+            Toast.makeText(this, mPresenter?.tempTicket?.ticketVideoLocalUri, Toast.LENGTH_SHORT).show()
+
+
             updateVideoView()
 
         }
@@ -276,12 +278,21 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
 
         if (mPresenter?.tempTicket?.ticketVideoPostId.equals(C.VIDEO_CREATED_TICKET_VIDEO_POST_ID)) {
 
+            /*
             var videoTicket = Ticket()
             videoTicket.setTicket(mPresenter?.tempTicket!!)
 
+            val bundle = Bundle()
+            bundle.putParcelable(C.KEY_TICKET, videoTicket)
+            bundle.putInt(C.KEY_TICKET_TYPE, mTicketType)
+            */
+
             val intent = Intent(this, VideoUploadService::class.java)
-            intent.putExtra(C.KEY_TICKET, Parcels.wrap(videoTicket))
+            //intent.putExtra(C.KEY_TICKET, Parcels.wrap(videoTicket))
+            //intent.putExtra(C.KEY_TICKET, Parcelize.wrap(mPresenter?.tempTicket))
+            //intent.putP
             intent.putExtra(C.KEY_TICKET, Parcels.wrap(mPresenter?.tempTicket))
+            //intent.putExtra("bundle", bundle)
             intent.putExtra(C.KEY_TICKET_TYPE, mTicketType)
             startService(intent)
 
