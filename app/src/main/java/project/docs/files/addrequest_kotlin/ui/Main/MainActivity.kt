@@ -19,8 +19,6 @@ import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
 
 class MainActivity : AppCompatActivity() {
 
-    // Commit on 10-08-2018 after hiatus
-
     private var mFirebaseAuth: FirebaseAuth? = null
     private var mAuthStateListener: FirebaseAuth.AuthStateListener? = null
 
