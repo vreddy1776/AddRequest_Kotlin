@@ -13,10 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.ImageView
+import android.widget.*
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
@@ -33,9 +30,8 @@ import kotlinx.android.synthetic.main.activity_item_detail.*
 import org.parceler.Parcels
 import project.docs.files.addrequest_kotlin.R
 import project.docs.files.addrequest_kotlin.application.MyApplication
-import project.docs.files.addrequest_kotlin.data.Ticket
 import project.docs.files.addrequest_kotlin.settings.UserProfile
-import project.docs.files.addrequest_kotlin.threads.VideoUploadService
+import project.docs.files.addrequest_kotlin.services.VideoUploadService
 import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
 import project.docs.files.addrequest_kotlin.utils.C
 import project.docs.files.addrequest_kotlin.utils.DateTimeUtils

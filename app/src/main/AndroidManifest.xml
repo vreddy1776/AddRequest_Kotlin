@@ -34,12 +34,12 @@
 
         <!-- FirebaseDbListener Service -->
         <service
-            android:name=".threads.FirebaseDbListenerService"
+            android:name=".services.FirebaseDbListenerService"
             android:enabled="true" />
 
         <!-- VideoUpload Service -->
         <service
-            android:name=".threads.VideoUploadService"
+            android:name=".services.VideoUploadService"
             android:enabled="true" />
 
     </application>

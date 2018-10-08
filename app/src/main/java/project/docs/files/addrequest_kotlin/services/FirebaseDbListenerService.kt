@@ -1,4 +1,4 @@
-package project.docs.files.addrequest_kotlin.threads
+package project.docs.files.addrequest_kotlin.services
 
 import android.app.Service
 import android.content.Intent

@@ -3,7 +3,6 @@ package project.docs.files.addrequest_kotlin.ui.TicketList
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import com.google.firebase.database.FirebaseDatabase
-import project.docs.files.addrequest_kotlin.SyncVolley
 import project.docs.files.addrequest_kotlin.adapter.TicketAdapter
 import project.docs.files.addrequest_kotlin.data.AppDatabase
 import project.docs.files.addrequest_kotlin.data.Ticket

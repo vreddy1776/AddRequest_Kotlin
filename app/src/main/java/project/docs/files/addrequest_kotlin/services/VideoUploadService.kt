@@ -1,11 +1,9 @@
-package project.docs.files.addrequest_kotlin.threads
+package project.docs.files.addrequest_kotlin.services
 
 import android.app.Service
 import android.content.Intent
 import android.net.Uri
 import android.os.IBinder
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import org.parceler.Parcels
@@ -44,24 +42,22 @@ class VideoUploadService : Service() {
     private fun uploadVideo(tempTicket: Ticket, ticketType: Int) {
 
         val firebaseStorage = FirebaseStorage.getInstance()
-        val firebaseVideoRef = firebaseStorage.getReference().child("Videos")
+        val firebaseVideoRef = firebaseStorage.reference.child("Videos")
 
         val capturedVideoUri = Uri.parse(tempTicket.ticketVideoLocalUri)
         val localVideoRef = firebaseVideoRef.child(capturedVideoUri.lastPathSegment)
         val uploadTask = localVideoRef.putFile(capturedVideoUri)
 
-        uploadTask.addOnFailureListener(OnFailureListener { stopSelf() }).addOnSuccessListener(OnSuccessListener<Any> { taskSnapshot ->
-            tempTicket.ticketVideoPostId = C.VIDEO_EXISTS_TICKET_VIDEO_POST_ID
-            //tempTicket.ticketVideoInternetUrl = taskSnapshot.getDownloadUrl().toString()
-            tempTicket.ticketVideoInternetUrl = taskSnapshot.toString()
-
-
-            addTicketToDb(tempTicket, ticketType)
-
-            Notifications.ticketPostedNotification(tempTicket.ticketId)
-
+        uploadTask.addOnFailureListener {
             stopSelf()
-        })
+        }.addOnSuccessListener { taskSnapshot ->
+
+            tempTicket.ticketVideoPostId = C.VIDEO_EXISTS_TICKET_VIDEO_POST_ID
+            tempTicket.ticketVideoInternetUrl = taskSnapshot.downloadUrl.toString()
+            addTicketToDb(tempTicket, ticketType)
+            Notifications.ticketPostedNotification(tempTicket.ticketId)
+            stopSelf()
+        }
 
     }
 
@@ -108,12 +104,5 @@ class VideoUploadService : Service() {
         val myRef = fBdatabase.getReference("Tickets")
         Thread(Runnable { myRef.child(tempTicket.ticketId.toString()).setValue(tempTicket) }).start()
     }
-
-    companion object {
-
-
-        private val TAG = VideoUploadService::class.java.simpleName
-    }
-
 
 }
