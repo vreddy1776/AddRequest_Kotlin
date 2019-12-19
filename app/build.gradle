@@ -14,6 +14,7 @@ android {
         applicationId "project.docs.files.addrequest_kotlin"
         minSdkVersion 16
         targetSdkVersion 27
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -63,6 +64,9 @@ dependencies {
 
     // Exoplayer
     implementation 'com.google.android.exoplayer:exoplayer:2.6.1'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.6.1'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.6.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.6.1'
 
     //Parceler
     implementation 'org.parceler:parceler-api:1.1.11'
@@ -75,7 +79,7 @@ dependencies {
 
     // Testing
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'

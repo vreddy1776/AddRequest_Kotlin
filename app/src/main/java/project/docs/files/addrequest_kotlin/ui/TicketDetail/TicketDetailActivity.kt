@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
+import com.bumptech.glide.util.Util
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
@@ -25,7 +26,18 @@ import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.TransferListener
-import com.google.android.exoplayer2.util.Util
+//import com.google.android.exoplayer2.ExoPlayerFactory
+//import com.google.android.exoplayer2.SimpleExoPlayer
+//import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
+//import com.google.android.exoplayer2.source.ExtractorMediaSource
+//import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
+//import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+//import com.google.android.exoplayer2.ui.SimpleExoPlayerView
+//import com.google.android.exoplayer2.upstream.DataSource
+//import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
+//import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+//import com.google.android.exoplayer2.upstream.TransferListener
+//import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import org.parceler.Parcels
 import project.docs.files.addrequest_kotlin.R
@@ -332,7 +344,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         val bandwidthMeter = DefaultBandwidthMeter()
         val extractorsFactory = DefaultExtractorsFactory()
         val videoTrackSelectionFactory = AdaptiveTrackSelection.Factory(bandwidthMeter)
-        val mediaDataSourceFactory = DefaultDataSourceFactory(this, Util.getUserAgent(this, "mediaPlayerSample"), bandwidthMeter as TransferListener<in DataSource>)
+        val mediaDataSourceFactory = DefaultDataSourceFactory(this, com.google.android.exoplayer2.util.Util.getUserAgent(this, "mediaPlayerSample"), bandwidthMeter as TransferListener<in DataSource>)
         val mediaSource = ExtractorMediaSource(mVideoUri,
                 mediaDataSourceFactory, extractorsFactory, null, null)
 
@@ -353,33 +365,33 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         shouldAutoPlay = player.playWhenReady
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (Util.SDK_INT > 23) {
-            initPlayer()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if ((Util.SDK_INT <= 23)) {
-            initPlayer()
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        if (Util.SDK_INT <= 23) {
-            releasePlayer()
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        if (Util.SDK_INT > 23) {
-            releasePlayer()
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        if (Util.SDK_INT > 23) {
+//            initPlayer()
+//        }
+//    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        if ((Util.SDK_INT <= 23)) {
+//            initPlayer()
+//        }
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        if (Util.SDK_INT <= 23) {
+//            releasePlayer()
+//        }
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        if (Util.SDK_INT > 23) {
+//            releasePlayer()
+//        }
+//    }
 
 
 }
