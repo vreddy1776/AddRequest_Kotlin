@@ -9,8 +9,8 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import project.docs.files.addrequest_kotlin.R
-import project.docs.files.addrequest_kotlin.application.MyApplication
 import project.docs.files.addrequest_kotlin.data.Ticket
+import project.docs.files.addrequest_kotlin.di.App
 import project.docs.files.addrequest_kotlin.utils.C
 
 
@@ -63,13 +63,13 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
             holder.ticketVideoThumbnailView.visibility = View.VISIBLE
             val requestOptions = RequestOptions()
             requestOptions.isMemoryCacheable
-            Glide.with(MyApplication.appContext!!)
+            Glide.with(App.applicationContext())
                     .load(ticket.ticketVideoInternetUrl)
                     .thumbnail(0.1f)
                     .into(holder.ticketVideoThumbnailView)
         }
 
-        Glide.with(MyApplication.appContext!!)
+        Glide.with(App.applicationContext())
                 .load(ticket.userPhotoUrl)
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.ticketUserUrlView)
@@ -87,7 +87,7 @@ class TicketAdapter : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TicketViewHolder {
 
         // Inflate the item to a view
-        val view = LayoutInflater.from(MyApplication.appContext)
+        val view = LayoutInflater.from(App.applicationContext())
                 .inflate(R.layout.item_layout, parent, false)
 
         return TicketViewHolder(view)

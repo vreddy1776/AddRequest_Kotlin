@@ -1,6 +1,7 @@
 package project.docs.files.addrequest_kotlin.ui.TicketDetail
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -9,12 +10,10 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
-import com.bumptech.glide.util.Util
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
@@ -26,6 +25,7 @@ import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.TransferListener
+import dagger.android.support.DaggerAppCompatActivity
 //import com.google.android.exoplayer2.ExoPlayerFactory
 //import com.google.android.exoplayer2.SimpleExoPlayer
 //import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
@@ -41,17 +41,19 @@ import com.google.android.exoplayer2.upstream.TransferListener
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import org.parceler.Parcels
 import project.docs.files.addrequest_kotlin.R
-import project.docs.files.addrequest_kotlin.application.MyApplication
 import project.docs.files.addrequest_kotlin.settings.UserProfile
 import project.docs.files.addrequest_kotlin.services.VideoUploadService
 import project.docs.files.addrequest_kotlin.ui.TicketList.TicketListActivity
 import project.docs.files.addrequest_kotlin.utils.C
 import project.docs.files.addrequest_kotlin.utils.DateTimeUtils
 import java.util.*
+import javax.inject.Inject
 
 
-class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
+class TicketDetailActivity : DaggerAppCompatActivity(), TicketDetailContract.View {
 
+    @Inject
+    lateinit var appContext: Context
 
     private var mTitleText: EditText? = null
     private var mDescriptionText: EditText? = null
@@ -172,18 +174,18 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
             mVideoButton?.visibility = View.VISIBLE
             mVideoDeleteButton?.visibility = View.INVISIBLE
             if (mTicketType == C.VIEW_TICKET_TYPE) {
-                mVideoWrapper?.background = ContextCompat.getDrawable(MyApplication.appContext!!, R.drawable.background_border_solid)
-                mVideoButton?.background = ContextCompat.getDrawable(MyApplication.appContext!!, R.drawable.ic_no_video)
+                mVideoWrapper?.background = ContextCompat.getDrawable(appContext, R.drawable.background_border_solid)
+                mVideoButton?.background = ContextCompat.getDrawable(appContext, R.drawable.ic_no_video)
                 mVideoButton?.isEnabled = false
             } else {
-                videoWrapper.background = ContextCompat.getDrawable(MyApplication.appContext!!, R.drawable.background_border_dashed)
-                videoButton.background = ContextCompat.getDrawable(MyApplication.appContext!!, R.drawable.ic_add_video)
+                videoWrapper.background = ContextCompat.getDrawable(appContext, R.drawable.background_border_dashed)
+                videoButton.background = ContextCompat.getDrawable(appContext, R.drawable.ic_add_video)
                 videoButton.isEnabled = true
             }
         } else {
             mStreamVideo?.visibility = View.VISIBLE
             mVideoButton?.visibility = View.INVISIBLE
-            videoWrapper.setBackgroundColor(ContextCompat.getColor(MyApplication.appContext!!, R.color.videoBackground))
+            videoWrapper.setBackgroundColor(ContextCompat.getColor(appContext, R.color.videoBackground))
             if (mTicketType != C.VIEW_TICKET_TYPE) {
                 mVideoDeleteButton?.visibility = View.VISIBLE
             }

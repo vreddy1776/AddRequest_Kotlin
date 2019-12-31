@@ -30,6 +30,10 @@ android {
     }
 }
 
+ext {
+    daggerVersion = "2.15"
+}
+
 dependencies {
 
     // RecyclerView
@@ -68,7 +72,7 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-dash:2.6.1'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.6.1'
 
-    //Parceler
+    // Parceler
     implementation 'org.parceler:parceler-api:1.1.11'
     annotationProcessor 'org.parceler:parceler:1.1.11'
 
@@ -85,6 +89,17 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // Dagger 2
+/*    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"*/
+
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+
 }
 apply plugin: 'com.google.gms.google-services'
 

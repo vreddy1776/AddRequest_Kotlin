@@ -9,7 +9,7 @@ import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import project.docs.files.addrequest_kotlin.R
-import project.docs.files.addrequest_kotlin.application.MyApplication
+import project.docs.files.addrequest_kotlin.di.App
 import project.docs.files.addrequest_kotlin.ui.TicketDetail.TicketDetailActivity
 import project.docs.files.addrequest_kotlin.utils.C
 
@@ -37,7 +37,7 @@ object Notifications {
 
     fun ticketPostedNotification(ticketID: Int) {
 
-        val context = MyApplication.appContext
+        val context = App.applicationContext()
         mTicketID = ticketID
 
         val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

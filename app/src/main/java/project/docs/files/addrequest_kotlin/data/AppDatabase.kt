@@ -3,7 +3,7 @@ package project.docs.files.addrequest_kotlin.data
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
-import project.docs.files.addrequest_kotlin.application.MyApplication
+import project.docs.files.addrequest_kotlin.di.App
 
 
 @Database(entities = [(Ticket::class)], version = 1, exportSchema = false)
@@ -21,7 +21,7 @@ abstract class AppDatabase : RoomDatabase() {
                 }
 
         private fun buildDatabase() =
-                Room.databaseBuilder(MyApplication.appContext!!,
+                Room.databaseBuilder(App.applicationContext(),
                         AppDatabase::class.java, "ticket_database")
                         .build()
 

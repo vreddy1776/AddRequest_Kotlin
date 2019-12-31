@@ -2,12 +2,11 @@ package project.docs.files.addrequest_kotlin.settings
 
 import android.preference.PreferenceManager
 import project.docs.files.addrequest_kotlin.R
-import project.docs.files.addrequest_kotlin.application.MyApplication
+import project.docs.files.addrequest_kotlin.di.App
 import project.docs.files.addrequest_kotlin.utils.NameUtils
 
 
 object UserProfile {
-
 
     private val PREFERENCES_KEY_USERID = "preferences_key_userId"
     private val PREFERENCES_KEY_USERNAME = "preferences_key_userName"
@@ -18,42 +17,42 @@ object UserProfile {
 
     fun getUserID(): String? {
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.appContext)
-        return prefs.getString(PREFERENCES_KEY_USERID, MyApplication.appContext?.getString(R.string.default_userid))
+        val prefs = PreferenceManager.getDefaultSharedPreferences(App.applicationContext())
+        return prefs.getString(PREFERENCES_KEY_USERID, App.applicationContext().getString(R.string.default_userid))
 
     }
 
 
     fun getUsername(): String {
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.appContext)
-        return prefs.getString(PREFERENCES_KEY_USERNAME, MyApplication.appContext?.getString(R.string.default_username))
+        val prefs = PreferenceManager.getDefaultSharedPreferences(App.applicationContext())
+        return prefs.getString(PREFERENCES_KEY_USERNAME, App.applicationContext().getString(R.string.default_username))
 
     }
 
     fun getFirstname(): String {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.appContext)
-        return prefs.getString(PREFERENCES_KEY_FIRSTNAME, MyApplication.appContext?.getString(R.string.default_username))
+        val prefs = PreferenceManager.getDefaultSharedPreferences(App.applicationContext())
+        return prefs.getString(PREFERENCES_KEY_FIRSTNAME, App.applicationContext().getString(R.string.default_username))
     }
 
 
     fun getLastname(): String {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.appContext)
-        return prefs.getString(PREFERENCES_KEY_LASTNAME, MyApplication.appContext?.getString(R.string.default_username))
+        val prefs = PreferenceManager.getDefaultSharedPreferences(App.applicationContext())
+        return prefs.getString(PREFERENCES_KEY_LASTNAME, App.applicationContext().getString(R.string.default_username))
     }
 
 
     fun getUserPhotoURL(): String {
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.appContext)
-        return prefs.getString(PREFERENCES_KEY_USER_PHOTO_URL, MyApplication.appContext?.getString(R.string.default_userphotourl))
+        val prefs = PreferenceManager.getDefaultSharedPreferences(App.applicationContext())
+        return prefs.getString(PREFERENCES_KEY_USER_PHOTO_URL, App.applicationContext().getString(R.string.default_userphotourl))
 
     }
 
 
     fun setUserProfileAtLogin(userId: String, userName: String?, userPhotoUrl: String) {
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.appContext)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(App.applicationContext())
         val editor = prefs.edit()
         editor.putString(PREFERENCES_KEY_USERID, userId)
         editor.putString(PREFERENCES_KEY_USERNAME, userName)
@@ -68,13 +67,13 @@ object UserProfile {
 
     fun setUserProfileAtLogout() {
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.appContext)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(App.applicationContext())
         val editor = prefs.edit()
-        editor.putString(PREFERENCES_KEY_USERID, MyApplication.appContext?.getString(R.string.default_userid))
-        editor.putString(PREFERENCES_KEY_USERNAME, MyApplication.appContext?.getString(R.string.default_username))
-        editor.putString(PREFERENCES_KEY_USER_PHOTO_URL, MyApplication.appContext?.getString(R.string.default_userphotourl))
-        editor.putString(PREFERENCES_KEY_FIRSTNAME, MyApplication.appContext?.getString(R.string.default_username))
-        editor.putString(PREFERENCES_KEY_LASTNAME, MyApplication.appContext?.getString(R.string.default_username))
+        editor.putString(PREFERENCES_KEY_USERID, App.applicationContext().getString(R.string.default_userid))
+        editor.putString(PREFERENCES_KEY_USERNAME, App.applicationContext().getString(R.string.default_username))
+        editor.putString(PREFERENCES_KEY_USER_PHOTO_URL, App.applicationContext().getString(R.string.default_userphotourl))
+        editor.putString(PREFERENCES_KEY_FIRSTNAME, App.applicationContext().getString(R.string.default_username))
+        editor.putString(PREFERENCES_KEY_LASTNAME, App.applicationContext().getString(R.string.default_username))
 
         editor.apply()
 
